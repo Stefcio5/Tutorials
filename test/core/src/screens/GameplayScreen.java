@@ -35,7 +35,7 @@ public class GameplayScreen extends AbstractScreen{
     private void initPointsLabel() {
         Label.LabelStyle labelStyle = new Label.LabelStyle();
         labelStyle.font = new BitmapFont();
-        pointsLabel = new Label("Points: ", labelStyle);
+        pointsLabel = new Label("", labelStyle);
         pointsLabel.setX(20);
         pointsLabel.setY(650);
         stage.addActor(pointsLabel);
@@ -76,7 +76,7 @@ public class GameplayScreen extends AbstractScreen{
         super.render(delta);
         update();
 
-        System.out.println("Points: " +game.getPoints());
+        
 
         spriteBatch.begin();
         stage.draw();
@@ -84,6 +84,7 @@ public class GameplayScreen extends AbstractScreen{
     }
 
     private void update() {
+        pointsLabel.setText("Points: "+game.getPoints());
         stage.act();
     }
 }
