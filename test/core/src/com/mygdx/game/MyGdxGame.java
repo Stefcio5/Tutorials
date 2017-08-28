@@ -25,6 +25,11 @@ public class MyGdxGame extends Game {
 	}
 
 	private boolean paused;
+	private int points;
+
+	public void addPoint(){
+		points++;
+	}
 
 
 
@@ -37,7 +42,7 @@ public class MyGdxGame extends Game {
 	}
 
 
-
-	
-
+	public int getPoints() {
+		return points;
+	}
 }
