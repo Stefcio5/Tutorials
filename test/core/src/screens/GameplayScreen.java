@@ -76,7 +76,7 @@ public class GameplayScreen extends AbstractScreen{
         super.render(delta);
         update();
 
-        
+
 
         spriteBatch.begin();
         stage.draw();
