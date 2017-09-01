@@ -35,14 +35,15 @@ public class MyGdxGame extends Game {
 
 	public void addPoint(){
 		points++;
+		updateSavedScoreInPrefs();
+	}
+
+	private void updateSavedScoreInPrefs() {
 		prefs.putInteger(GAME_SCORE, points);
 		prefs.flush();
 	}
 
 
-
-
-	
 	@Override
 	public void create () {
 		init();
@@ -63,5 +64,10 @@ public class MyGdxGame extends Game {
 
 	public int getPoints() {
 		return points;
+	}
+
+	public void resetGamePoints() {
+		points = 0;
+		updateSavedScoreInPrefs();
 	}
 }
