@@ -1,13 +1,12 @@
 package screens;
 
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.myGdxGame.game.MyGdxGame;
 import entities.Player;
 import ui.IClickCallback;
 import ui.PlayerButton;
+import ui.PointsLabel;
 import ui.ResetScoreButton;
 
 
@@ -19,7 +18,7 @@ public class GameplayScreen extends AbstractScreen {
     private Player player;
     private PlayerButton playerButton;
     private ResetScoreButton resetScoreButton;
-    private Label pointsLabel;
+    private PointsLabel pointsLabel;
 
     public GameplayScreen(MyGdxGame game) {
         super(game);
@@ -56,11 +55,7 @@ public class GameplayScreen extends AbstractScreen {
 
 
     private void initPointsLabel() {
-        Label.LabelStyle labelStyle = new Label.LabelStyle();
-        labelStyle.font = new BitmapFont();
-        pointsLabel = new Label("", labelStyle);
-        pointsLabel.setX(20);
-        pointsLabel.setY(650);
+        pointsLabel = new PointsLabel();
         stage.addActor(pointsLabel);
     }
 
