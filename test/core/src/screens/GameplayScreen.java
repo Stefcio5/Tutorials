@@ -1,6 +1,8 @@
 package screens;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.myGdxGame.game.MyGdxGame;
 import entities.Player;
@@ -15,6 +17,7 @@ import ui.ResetScoreButton;
  */
 public class GameplayScreen extends AbstractScreen {
 
+    private Image backgroundImage;
     private Player player;
     private PlayerButton playerButton;
     private ResetScoreButton resetScoreButton;
@@ -27,11 +30,17 @@ public class GameplayScreen extends AbstractScreen {
     }
 
     private void init() {
+        initBackground();
         initPlayer();
         initPlayerButton();
         initResetScoreButton();
         initPointsLabel();
 
+    }
+
+    private void initBackground() {
+        backgroundImage = new Image(new Texture("background.png"));
+        stage.addActor(backgroundImage);
     }
 
     private void initResetScoreButton() {
