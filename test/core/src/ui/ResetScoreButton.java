@@ -18,8 +18,7 @@ public class ResetScoreButton extends Button{
     }
 
     private void init(final IClickCallback callback) {
-        this.setWidth(200);
-        this.setHeight(100);
+        this.setSize(200, 100);
         this.setX(330);
         this.setY(560);
         this.setDebug(true);

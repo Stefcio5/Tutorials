@@ -15,7 +15,7 @@ public class Player extends com.badlogic.gdx.scenes.scene2d.ui.Image {
     private static final int HEIGHT = 300;
 
     private static final int STARTING_X = 200;
-    private static final int STARTING_Y = 300;
+    private static final int STARTING_Y = 200;
 
     public Player() {
         super(new Texture("Player.png"));
@@ -24,7 +24,7 @@ public class Player extends com.badlogic.gdx.scenes.scene2d.ui.Image {
         this.setSize(WIDTH, HEIGHT);
 
         // starting position
-        this.setPosition(STARTING_X, STARTING_X);
+        this.setPosition(STARTING_X, STARTING_Y);
 
 
     }

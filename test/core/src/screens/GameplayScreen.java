@@ -5,6 +5,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.myGdxGame.game.MyGdxGame;
+import entities.FlyingObject;
 import entities.Player;
 import ui.IClickCallback;
 import ui.PlayerButton;
@@ -22,6 +23,7 @@ public class GameplayScreen extends AbstractScreen {
     private PlayerButton playerButton;
     private ResetScoreButton resetScoreButton;
     private PointsLabel pointsLabel;
+    private FlyingObject flyingObject1;
 
     public GameplayScreen(MyGdxGame game) {
         super(game);
@@ -35,7 +37,14 @@ public class GameplayScreen extends AbstractScreen {
         initPlayerButton();
         initResetScoreButton();
         initPointsLabel();
+        initFlyingObjects();
 
+    }
+
+    private void initFlyingObjects() {
+        flyingObject1 = new FlyingObject(FlyingObject.MONEY);
+        stage.addActor(flyingObject1);
+        flyingObject1.fly();
     }
 
     private void initBackground() {
@@ -52,14 +61,6 @@ public class GameplayScreen extends AbstractScreen {
         });
         stage.addActor(resetScoreButton);
 
-        resetScoreButton.addListener(new ClickListener() {
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-
-                game.resetGamePoints();
-                return super.touchDown(event, x, y, pointer, button);
-            }
-        });
     }
 
 
