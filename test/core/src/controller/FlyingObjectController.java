@@ -19,26 +19,24 @@ public class FlyingObjectController {
 
     private void init(final MyGdxGame game, final Stage stage) {
         randomizeSpawnTime();
+
         Timer.schedule(new Timer.Task() {
+
             @Override
             public void run() {
-                FlyingObject flyingObject = null;
 
-                if (MathUtils.randomBoolean()){
-                    flyingObject = new FlyingObject(FlyingObject.FlyingObjectType.MONEY, game);
+                Timer.schedule(new Timer.Task() {
 
-                }
-                else {
-                    flyingObject = new FlyingObject(FlyingObject.FlyingObjectType.MONEY, game);
-               }
+                    @Override
+                    public void run() {
 
-                stage.addActor(flyingObject);
-                flyingObject.fly();
+                        addFlyingObjectToStage(game, stage);
+                        randomizeSpawnTime();
 
-
-                randomizeSpawnTime();
+                    }
+                }, spawnTime);
             }
-        },spawnTime, spawnTime);
+        }, 0, 5);
     }
 
     private void randomizeSpawnTime() {
@@ -46,4 +44,19 @@ public class FlyingObjectController {
     }
 
 
+    private void addFlyingObjectToStage(MyGdxGame game, Stage stage){
+        FlyingObject flyingObject = null;
+
+        if (MathUtils.randomBoolean()){
+            flyingObject = new FlyingObject(FlyingObject.FlyingObjectType.MONEY, game);
+
+        }
+        else {
+            flyingObject = new FlyingObject(FlyingObject.FlyingObjectType.MONEY, game);
+        }
+
+        stage.addActor(flyingObject);
+        flyingObject.fly();
+
+    }
 }
