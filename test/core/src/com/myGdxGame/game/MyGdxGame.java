@@ -37,6 +37,10 @@ public class MyGdxGame extends Game {
         points++;
         updateSavedScoreInPrefs();
     }
+    public void addPoints(int pointsToAdd){
+        points += pointsToAdd;
+        updateSavedScoreInPrefs();
+    }
 
     private void updateSavedScoreInPrefs() {
         prefs.putInteger(GAME_SCORE, points);
