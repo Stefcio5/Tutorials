@@ -8,8 +8,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.myGdxGame.game.MyGdxGame;
 
-import static com.badlogic.gdx.scenes.scene2d.InputEvent.Type.touchDown;
-
 /**
  * Created by Stefcio on 10.09.2017.
  */

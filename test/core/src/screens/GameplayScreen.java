@@ -1,11 +1,9 @@
 package screens;
 
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.myGdxGame.game.MyGdxGame;
-import entities.FlyingObject;
+import controller.FlyingObjectController;
 import entities.Player;
 import ui.IClickCallback;
 import ui.PlayerButton;
@@ -23,7 +21,7 @@ public class GameplayScreen extends AbstractScreen {
     private PlayerButton playerButton;
     private ResetScoreButton resetScoreButton;
     private PointsLabel pointsLabel;
-    private FlyingObject flyingObject1;
+    private FlyingObjectController flyingObjectController;
 
     public GameplayScreen(MyGdxGame game) {
         super(game);
@@ -37,15 +35,16 @@ public class GameplayScreen extends AbstractScreen {
         initPlayerButton();
         initResetScoreButton();
         initPointsLabel();
-        initFlyingObjects();
+        initFlyingObjectController();
 
     }
 
-    private void initFlyingObjects() {
-        flyingObject1 = new FlyingObject(FlyingObject.FlyingObjectType.MONEY, game);
-        stage.addActor(flyingObject1);
-        flyingObject1.fly();
+    private void initFlyingObjectController() {
+        flyingObjectController = new FlyingObjectController(game, stage);
+
     }
+
+
 
     private void initBackground() {
         backgroundImage = new Image(new Texture("background.png"));
