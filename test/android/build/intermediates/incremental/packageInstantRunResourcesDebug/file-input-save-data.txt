@@ -1,0 +1,33 @@
+#Internal package file, do not edit.
+#Wed Sep 13 00:05:13 CEST 2017
+2.base=C\:\\Users\\Stefcio\\Documents\\Tutorials\\test\\test\\android\\build\\intermediates\\res\\resources-debug.ap_
+5.file=C\:\\Users\\Stefcio\\Documents\\Tutorials\\test\\test\\android\\build\\intermediates\\assets\\debug\\rusty-robot-ui.atlas
+5.set=ASSET
+3.base=C\:\\Users\\Stefcio\\Documents\\Tutorials\\test\\test\\android\\build\\intermediates\\res\\resources-debug.ap_
+6.file=C\:\\Users\\Stefcio\\Documents\\Tutorials\\test\\test\\android\\build\\intermediates\\assets\\debug\\rusty-robot-ui.png
+2.set=ANDROID_RESOURCE
+4.base=C\:\\Users\\Stefcio\\Documents\\Tutorials\\test\\test\\android\\build\\intermediates\\assets\\debug
+7.file=C\:\\Users\\Stefcio\\Documents\\Tutorials\\test\\test\\android\\build\\intermediates\\assets\\debug\\Player.png
+7.set=ASSET
+count=10
+0.file=C\:\\Users\\Stefcio\\Documents\\Tutorials\\test\\test\\android\\build\\intermediates\\assets\\debug\\background.png
+5.base=C\:\\Users\\Stefcio\\Documents\\Tutorials\\test\\test\\android\\build\\intermediates\\assets\\debug
+8.file=C\:\\Users\\Stefcio\\Documents\\Tutorials\\test\\test\\android\\build\\intermediates\\assets\\debug\\Splash screen.jpg
+4.set=ASSET
+6.base=C\:\\Users\\Stefcio\\Documents\\Tutorials\\test\\test\\android\\build\\intermediates\\assets\\debug
+1.file=C\:\\Users\\Stefcio\\Documents\\Tutorials\\test\\test\\android\\build\\intermediates\\assets\\debug\\badlogic.jpg
+9.set=ANDROID_RESOURCE
+9.file=C\:\\Users\\Stefcio\\Documents\\Tutorials\\test\\test\\android\\build\\intermediates\\res\\resources-debug.ap_\\res\\drawable-xhdpi-v4\\ic_launcher.png
+1.set=ASSET
+7.base=C\:\\Users\\Stefcio\\Documents\\Tutorials\\test\\test\\android\\build\\intermediates\\assets\\debug
+2.file=C\:\\Users\\Stefcio\\Documents\\Tutorials\\test\\test\\android\\build\\intermediates\\res\\resources-debug.ap_\\resources.arsc
+6.set=ASSET
+0.base=C\:\\Users\\Stefcio\\Documents\\Tutorials\\test\\test\\android\\build\\intermediates\\assets\\debug
+8.base=C\:\\Users\\Stefcio\\Documents\\Tutorials\\test\\test\\android\\build\\intermediates\\assets\\debug
+3.file=C\:\\Users\\Stefcio\\Documents\\Tutorials\\test\\test\\android\\build\\intermediates\\res\\resources-debug.ap_\\AndroidManifest.xml
+3.set=ANDROID_RESOURCE
+1.base=C\:\\Users\\Stefcio\\Documents\\Tutorials\\test\\test\\android\\build\\intermediates\\assets\\debug
+9.base=C\:\\Users\\Stefcio\\Documents\\Tutorials\\test\\test\\android\\build\\intermediates\\res\\resources-debug.ap_
+4.file=C\:\\Users\\Stefcio\\Documents\\Tutorials\\test\\test\\android\\build\\intermediates\\assets\\debug\\money.png
+8.set=ASSET
+0.set=ASSET

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="true"
+        jar="C:\Users\Stefcio\Documents\Tutorials\test\test\android\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.1"
+        sha1="8e04127796e6233286ecd41bbba92c40a4db6146">
+        <dex dex="C:\Users\Stefcio\Documents\Tutorials\test\test\android\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run_8e79faf25753e980b136b78c07711e70fd1e06fd\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Stefcio\Documents\Tutorials\test\test\android\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.1"
+        sha1="26a30fa414b5fef29a399c83cba4a02396ff2f29">
+        <dex dex="C:\Users\Stefcio\Documents\Tutorials\test\test\android\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run-bootstrap_8a57379fd0c4940eed8f66e0b607b07d9e07a905\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Stefcio\.gradle\caches\modules-2\files-2.1\com.badlogicgames.gdx\gdx-backend-android\1.9.6\57c2831c870743712b808384187ea856e541878f\gdx-backend-android-1.9.6.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.1"
+        sha1="57c2831c870743712b808384187ea856e541878f">
+        <dex dex="C:\Users\Stefcio\Documents\Tutorials\test\test\android\build\intermediates\transforms\dex\debug\folders\1000\10\gdx-backend-android-1.9.6_1cca59cd0031b950ebd5faba2532a16c22988955\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Stefcio\.gradle\caches\modules-2\files-2.1\com.badlogicgames.gdx\gdx\1.9.6\47d1e9b890e364ec28f128e9bb3b9a12a94c164\gdx-1.9.6.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.1"
+        sha1="047d1e9b890e364ec28f128e9bb3b9a12a94c164">
+        <dex dex="C:\Users\Stefcio\Documents\Tutorials\test\test\android\build\intermediates\transforms\dex\debug\folders\1000\10\gdx-1.9.6_8227a94e8e254275d6d285acd50d2d70d01f5d10\classes.dex" />
+    </item>
+
+</items>
