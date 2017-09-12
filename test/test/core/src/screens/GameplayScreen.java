@@ -1,10 +1,9 @@
 package screens;
 
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.myGdxGame.game.MyGdxGame;
+import controller.FlyingObjectController;
 import entities.Player;
 import ui.IClickCallback;
 import ui.PlayerButton;
@@ -22,6 +21,7 @@ public class GameplayScreen extends AbstractScreen {
     private PlayerButton playerButton;
     private ResetScoreButton resetScoreButton;
     private PointsLabel pointsLabel;
+    private FlyingObjectController flyingObjectController;
 
     public GameplayScreen(MyGdxGame game) {
         super(game);
@@ -35,8 +35,16 @@ public class GameplayScreen extends AbstractScreen {
         initPlayerButton();
         initResetScoreButton();
         initPointsLabel();
+        initFlyingObjectController();
 
     }
+
+    private void initFlyingObjectController() {
+        flyingObjectController = new FlyingObjectController(game, stage);
+
+    }
+
+
 
     private void initBackground() {
         backgroundImage = new Image(new Texture("background.png"));
@@ -52,14 +60,6 @@ public class GameplayScreen extends AbstractScreen {
         });
         stage.addActor(resetScoreButton);
 
-        resetScoreButton.addListener(new ClickListener() {
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-
-                game.resetGamePoints();
-                return super.touchDown(event, x, y, pointer, button);
-            }
-        });
     }
 
 
