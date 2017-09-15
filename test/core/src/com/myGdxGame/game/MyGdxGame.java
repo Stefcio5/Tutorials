@@ -4,16 +4,20 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import screens.SplashScreen;
+import service.ScoreService;
 
 public class MyGdxGame extends Game {
 
-    public final static String GAME_PREFS = "com.mygdx.game.prefs";
-    public final static String GAME_SCORE = "com.mygdx.game.prefs.score";
+
 
     public final static String GAME_NAME = "Tutorial Clicker";
 
     public final static int WIDTH = 480;
     public final static int HEIGHT = 700;
+
+
+
+    private ScoreService scoreService;
 
 
 	/*
@@ -30,22 +34,13 @@ public class MyGdxGame extends Game {
     }
 
     private boolean paused;
-    private int points;
-    private Preferences prefs;
 
-    public void addPoint() {
-        points++;
-        updateSavedScoreInPrefs();
-    }
-    public void addPoints(int pointsToAdd){
-        points += pointsToAdd;
-        updateSavedScoreInPrefs();
+    public ScoreService getScoreService() {
+        return scoreService;
     }
 
-    private void updateSavedScoreInPrefs() {
-        prefs.putInteger(GAME_SCORE, points);
-        prefs.flush();
-    }
+
+
 
 
     @Override
@@ -54,24 +49,14 @@ public class MyGdxGame extends Game {
         this.setScreen(new SplashScreen(this));
 
     }
-
-    private void loadScore() {
-        points = prefs.getInteger(GAME_SCORE);
-
-    }
-
     private void init() {
-        prefs = Gdx.app.getPreferences(GAME_PREFS);
-        loadScore();
+        initScoreService();
+
+    }
+
+    private void initScoreService() {
+        scoreService = new ScoreService();
     }
 
 
-    public int getPoints() {
-        return points;
-    }
-
-    public void resetGamePoints() {
-        points = 0;
-        updateSavedScoreInPrefs();
-    }
 }

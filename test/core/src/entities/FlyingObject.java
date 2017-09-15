@@ -60,7 +60,7 @@ public class FlyingObject extends Image {
 
     private void reactOnClick() {
         if(FlyingObjectType.MONEY.equals(type)){
-            game.addPoints(50);
+            game.getScoreService().addPoints(50);
         }
         FlyingObject.this.remove();
     }
