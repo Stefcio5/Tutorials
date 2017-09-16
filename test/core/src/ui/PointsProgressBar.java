@@ -15,12 +15,14 @@ public class PointsProgressBar extends ProgressBar {
     public PointsProgressBar(float min, float max, float stepSize, boolean vertical) {
         super(min, max, stepSize, vertical, PointsProgressBarStyle());
 
-        this.setX(120);
-        this.setY(650);
+        this.setX(140);
+        this.setY(640);
     }
+
+
 private static ProgressBarStyle PointsProgressBarStyle(){
     Pixmap pixmap = new Pixmap(100, 20, Pixmap.Format.RGBA8888);
-    pixmap.setColor(Color.RED);
+    pixmap.setColor(Color.BROWN);
     pixmap.fill();
 
     TextureRegionDrawable drawable = new TextureRegionDrawable(new TextureRegion(new Texture(pixmap)));
@@ -29,8 +31,8 @@ private static ProgressBarStyle PointsProgressBarStyle(){
     ProgressBarStyle progressBarStyle = new ProgressBarStyle();
     progressBarStyle.background = drawable;
 
-
-    pixmap = new Pixmap(100, 20, Pixmap.Format.RGBA8888);
+// Not usable atm
+    pixmap = new Pixmap(0, 20, Pixmap.Format.RGBA8888);
     pixmap.setColor(Color.GREEN);
     pixmap.fill();
     drawable = new TextureRegionDrawable(new TextureRegion(new Texture(pixmap)));
@@ -38,8 +40,9 @@ private static ProgressBarStyle PointsProgressBarStyle(){
 
     progressBarStyle.knob = drawable;
 
-    pixmap = new Pixmap(0, 20, Pixmap.Format.RGBA8888);
-    pixmap.setColor(Color.GREEN);
+
+    pixmap = new Pixmap(1, 20, Pixmap.Format.RGBA8888);
+    pixmap.setColor(Color.YELLOW);
     pixmap.fill();
     drawable = new TextureRegionDrawable(new TextureRegion(new Texture(pixmap)));
     pixmap.dispose();
