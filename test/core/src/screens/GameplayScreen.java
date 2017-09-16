@@ -20,6 +20,7 @@ public class GameplayScreen extends AbstractScreen {
     private PointsLabel pointsLabel;
     private StrengthLabel strengthLabel;
     private FlyingObjectController flyingObjectController;
+    //private PointsProgressBar pointsProgressBar;
 
     public GameplayScreen(MyGdxGame game) {
         super(game);
@@ -34,14 +35,22 @@ public class GameplayScreen extends AbstractScreen {
         initResetScoreButton();
         initPointsLabel();
         initStrengthLabel();
+        initPointProgressBar();
         initFlyingObjectController();
 
     }
 
+    private void initPointProgressBar() {
+        pointsProgressBar = new PointsProgressBar(0.0f, 1.0f, 0.01f, false);
+        pointsProgressBar.setValue(game.getScoreService().getPoints());
+        pointsProgressBar.setAnimateDuration(0.25f);
+        stage.addActor(pointsProgressBar);
+    }
 
 
     private void initFlyingObjectController() {
         flyingObjectController = new FlyingObjectController(game, stage);
+
 
     }
 
@@ -106,6 +115,7 @@ public class GameplayScreen extends AbstractScreen {
     private void update() {
         pointsLabel.setText("Points: " + game.getScoreService().getPoints());
         strengthLabel.setText("Strength: " +game.getScoreService().getStrength());
+
         stage.act();
     }
 }
