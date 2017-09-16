@@ -14,7 +14,7 @@ import com.myGdxGame.game.MyGdxGame;
  */
 public class FlyingObject extends Image {
 
-    public enum FlyingObjectType{
+    public enum FlyingObjectType {
         MONEY
     }
 
@@ -33,20 +33,20 @@ public class FlyingObject extends Image {
     private MyGdxGame game;
     private FlyingObjectType type;
 
-    public FlyingObject(FlyingObjectType type, MyGdxGame game){
+    public FlyingObject(FlyingObjectType type, MyGdxGame game) {
         super(new Texture(getTextureString(type)));
 
         this.game = game;
         this.type = type;
 
-        this.setOrigin(WIDTH/2, HEIGHT/2);
+        this.setOrigin(WIDTH / 2, HEIGHT / 2);
         this.setSize(WIDTH, HEIGHT);
 
         startingX = MathUtils.randomBoolean() ? STARTING_X_1 : STARTING_X_2;
 
         this.setPosition(startingX, STARTING_Y);
 
-        this.addListener(new ClickListener(){
+        this.addListener(new ClickListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
 
@@ -56,56 +56,56 @@ public class FlyingObject extends Image {
             }
         });
 
-        }
+    }
 
     private void reactOnClick() {
-        if(FlyingObjectType.MONEY.equals(type)){
+        if (FlyingObjectType.MONEY.equals(type)) {
             game.getScoreService().addPoints(50);
         }
         FlyingObject.this.remove();
     }
 
     private static String getTextureString(FlyingObjectType type) {
-        if(FlyingObjectType.MONEY.equals(type)){
+        if (FlyingObjectType.MONEY.equals(type)) {
             return MONEY;
         }
         return "";
 
     }
 
-    public void fly(){
+    public void fly() {
 
         int xSign;
         int time1 = MathUtils.random(1, 6);
         int time2 = MathUtils.random(1, 6);
         int RandomYEffect = MathUtils.random(-100, 500);
-        if(startingX==STARTING_X_1){
+        if (startingX == STARTING_X_1) {
             xSign = 1;
-        }else {
+        } else {
             xSign = -1;
         }
-            Action a = Actions.parallel(
-                    Actions.moveBy(xSign*300 + MathUtils.random(-200, 200), 200 + RandomYEffect , time1),
-                    Actions.rotateBy(360, time1)
-            );
+        Action a = Actions.parallel(
+                Actions.moveBy(xSign * 300 + MathUtils.random(-200, 200), 200 + RandomYEffect, time1),
+                Actions.rotateBy(360, time1)
+        );
 
-            Action b = Actions.parallel(
-                    Actions.moveBy(xSign*(-500)+ MathUtils.random(-200, 200), 900 + RandomYEffect, time2),
-                    Actions.rotateBy(360, time2)
-            );
+        Action b = Actions.parallel(
+                Actions.moveBy(xSign * (-500) + MathUtils.random(-200, 200), 900 + RandomYEffect, time2),
+                Actions.rotateBy(360, time2)
+        );
 
-            Action c = Actions.run(new Runnable() {
+        Action c = Actions.run(new Runnable() {
 
-                @Override
-                public void run() {
-                    FlyingObject.this.remove();
-                }
-            });
+            @Override
+            public void run() {
+                FlyingObject.this.remove();
+            }
+        });
 
 
-            this.addAction(Actions.sequence(a, b, c));
-        }
-        }
+        this.addAction(Actions.sequence(a, b, c));
+    }
+}
 
 
 

@@ -12,7 +12,8 @@ import entities.FlyingObject;
 public class FlyingObjectController {
 
     private int spawnTime;
-    public FlyingObjectController(MyGdxGame game, Stage stage){
+
+    public FlyingObjectController(MyGdxGame game, Stage stage) {
         init(game, stage);
 
     }
@@ -44,14 +45,13 @@ public class FlyingObjectController {
     }
 
 
-    private void addFlyingObjectToStage(MyGdxGame game, Stage stage){
+    private void addFlyingObjectToStage(MyGdxGame game, Stage stage) {
         FlyingObject flyingObject = null;
 
-        if (MathUtils.randomBoolean()){
+        if (MathUtils.randomBoolean()) {
             flyingObject = new FlyingObject(FlyingObject.FlyingObjectType.MONEY, game);
 
-        }
-        else {
+        } else {
             flyingObject = new FlyingObject(FlyingObject.FlyingObjectType.MONEY, game);
         }
 

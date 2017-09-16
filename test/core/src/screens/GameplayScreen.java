@@ -5,10 +5,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.myGdxGame.game.MyGdxGame;
 import controller.FlyingObjectController;
 import entities.Player;
-import ui.IClickCallback;
-import ui.PlayerButton;
-import ui.PointsLabel;
-import ui.ResetScoreButton;
+import ui.*;
 
 
 /**
@@ -21,6 +18,7 @@ public class GameplayScreen extends AbstractScreen {
     private PlayerButton playerButton;
     private ResetScoreButton resetScoreButton;
     private PointsLabel pointsLabel;
+    private StrengthLabel strengthLabel;
     private FlyingObjectController flyingObjectController;
 
     public GameplayScreen(MyGdxGame game) {
@@ -35,15 +33,17 @@ public class GameplayScreen extends AbstractScreen {
         initPlayerButton();
         initResetScoreButton();
         initPointsLabel();
+        initStrengthLabel();
         initFlyingObjectController();
 
     }
+
+
 
     private void initFlyingObjectController() {
         flyingObjectController = new FlyingObjectController(game, stage);
 
     }
-
 
 
     private void initBackground() {
@@ -67,6 +67,10 @@ public class GameplayScreen extends AbstractScreen {
         pointsLabel = new PointsLabel();
         stage.addActor(pointsLabel);
     }
+    private void initStrengthLabel() {
+        strengthLabel = new StrengthLabel();
+        stage.addActor(strengthLabel);
+    }
 
     private void initPlayerButton() {
         playerButton = new PlayerButton(new IClickCallback() {
@@ -74,6 +78,7 @@ public class GameplayScreen extends AbstractScreen {
             public void onClick() {
                 player.reactOnClick();
                 game.getScoreService().addPoint();
+                game.getScoreService().addStrength();
             }
         });
 
@@ -100,6 +105,7 @@ public class GameplayScreen extends AbstractScreen {
 
     private void update() {
         pointsLabel.setText("Points: " + game.getScoreService().getPoints());
+        strengthLabel.setText("Strength: " +game.getScoreService().getStrength());
         stage.act();
     }
 }
