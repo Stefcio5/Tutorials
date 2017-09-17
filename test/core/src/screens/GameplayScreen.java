@@ -1,5 +1,6 @@
 package screens;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.myGdxGame.game.MyGdxGame;
@@ -17,6 +18,7 @@ public class GameplayScreen extends AbstractScreen {
     private Player player;
     private PlayerButton playerButton;
     private ResetScoreButton resetScoreButton;
+    private BattleScreenButton battleScreenButton;
     private PointsLabel pointsLabel;
     private StrengthLabel strengthLabel;
     private FlyingObjectController flyingObjectController;
@@ -33,10 +35,23 @@ public class GameplayScreen extends AbstractScreen {
         initPlayer();
         initPlayerButton();
         initResetScoreButton();
+        initGameplayScreenButton();
         initPointsLabel();
         initStrengthLabel();
         initPointProgressBar();
         initFlyingObjectController();
+
+    }
+
+    private void initGameplayScreenButton() {
+        battleScreenButton = new BattleScreenButton(new IClickCallback() {
+            @Override
+            public void onClick() {
+                Gdx.app.log("My tag", "BattleScreenButton clicked");
+                game.setScreen(new BattleScreen(game));
+            }
+        });
+           stage.addActor(battleScreenButton);
 
     }
 
