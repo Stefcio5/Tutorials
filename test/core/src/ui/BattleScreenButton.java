@@ -16,8 +16,8 @@ public class BattleScreenButton extends TextButton{
     private void init(final IClickCallback callback){
         this.setWidth(100);
         this.setHeight(50);
-        this.setX(5);
-        this.setY(5);
+        this.setX(10);
+        this.setY(10);
         this.setDebug(true);
 
         this.addListener(new ClickListener(){

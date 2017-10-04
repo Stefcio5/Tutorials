@@ -20,8 +20,8 @@ public class BattleButton extends TextButton{
         private void init(final IClickCallback callback){
             this.setWidth(120);
             this.setHeight(50);
-            this.setX(MyGdxGame.WIDTH/2-getWidth()/2);
-            this.setY(MyGdxGame.HEIGHT-64f);
+            //this.setX(MyGdxGame.WIDTH/2-getWidth()/2);
+            //this.setY(MyGdxGame.HEIGHT-64f);
             this.setDebug(true);
 
             this.addListener(new ClickListener(){

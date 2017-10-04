@@ -1,8 +1,6 @@
 package combat;
 
-import com.badlogic.gdx.math.MathUtils;
 import com.myGdxGame.game.MyGdxGame;
-import service.ScoreService;
 
 /**
  * Created by Stefcio on 22.09.2017.
@@ -10,6 +8,9 @@ import service.ScoreService;
 public class Hero extends Character {
     static int health;
     static int damage;
+    static int level;
+    static int currentXp;
+    static int requiredXp;
 
     public int getHealth() {
         return health;
@@ -27,14 +28,27 @@ public class Hero extends Character {
         this.damage = damage;
     }
 
+    public static int getCurrentXp() {
+        return currentXp;
+    }
 
-    public Hero(int herohealth, int herodamage) {
+    public static void setCurrnetXp(int currnetXp) {
+        Hero.currentXp = currnetXp;
+    }
+
+
+
+    public Hero(MyGdxGame game,int level, int currentXp, int requiredXp, int herohealth, int herodamage) {
+        super(game);
+        this.level = level;
+        this.currentXp = currentXp;
+        this.requiredXp = requiredXp;
         health = herohealth;
         damage = herodamage;
 
     }
 
-    public static void HeroAttack() {
+    public void HeroAttack() {
         if (Hero.health > 0) {
             System.out.println("You did " + damage + " damage");
             Monster.health -= damage;

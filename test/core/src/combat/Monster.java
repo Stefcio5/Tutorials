@@ -1,6 +1,7 @@
 package combat;
 
 import com.badlogic.gdx.math.MathUtils;
+import com.myGdxGame.game.MyGdxGame;
 
 /**
  * Created by Stefcio on 20.09.2017.
@@ -27,14 +28,15 @@ public class Monster extends Character{
     }
 
 
-    public Monster(int MonsterLevel, int monsterhealth, int monsterdamage) {
+    public Monster(MyGdxGame game, int MonsterLevel, int monsterhealth, int monsterdamage) {
+        super(game);
         this.MonsterLevel = MonsterLevel;
         health = monsterhealth;
         damage = monsterdamage;
 
     }
 
-    public static void MonsterAttack() {
+    public void MonsterAttack() {
         if (Monster.health > 0) {
             System.out.println("        Monster attacks you for " + damage + " damage!");
             Hero.health -= damage;

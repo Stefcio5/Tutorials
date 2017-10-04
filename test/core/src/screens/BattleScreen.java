@@ -1,9 +1,11 @@
 package screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.myGdxGame.game.MyGdxGame;
-import combat.Character;
 import combat.Hero;
 import combat.Monster;
 import ui.BattleButton;
@@ -16,17 +18,60 @@ import ui.IClickCallback;
 public class BattleScreen extends AbstractScreen {
     private GameplayScreenButton gameplayScreenButton;
     private BattleButton battleButton;
+    private Table roottable;
+    private Table playerstats;
+    private Table monsterstats;
+    private Label depthlabel;
+    private Hero hero;
+    private Monster monster;
 
     public BattleScreen(MyGdxGame game) {
         super(game);
         init();
     }
     private void init(){
+        initTable();
         initGameplayScreenButton();
-        initBattleButton();
+        //initBattleButton();
     }
 
-    private void initBattleButton() {
+    private void initTable() {
+        roottable = new Table();
+        roottable.defaults().pad(10);
+        roottable.setFillParent(true);
+        roottable.debug();
+        roottable.setBounds(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+
+        Label.LabelStyle labelStyle = new Label.LabelStyle();
+        labelStyle.font = new BitmapFont();
+        depthlabel = new Label("Depth: " +game.getScoreService().getDepth(), labelStyle);
+
+
+        playerstats = new Table();
+        playerstats.debug();
+
+        monsterstats = new Table();
+        monsterstats.debug();
+
+
+
+        roottable.add(depthlabel).fill();
+        roottable.add(initBattleButton()).fill().height(40);
+        roottable.row();
+        roottable.add(playerstats).expand().uniform();
+        roottable.add(monsterstats).expand().uniform();
+        roottable.row();
+        roottable.add().height(40);
+
+
+        stage.addActor(roottable);
+
+
+
+
+    }
+
+    private BattleButton initBattleButton() {
         battleButton = new BattleButton(new IClickCallback() {
             @Override
             public void onClick() {
@@ -38,47 +83,48 @@ public class BattleScreen extends AbstractScreen {
 
 
         });
-        stage.addActor(battleButton);
+        return battleButton;
 
     }
 
     public void Battle() {
-        if (game.getScoreService().getDepth() < 1){
-            game.getScoreService().setDepth(1);
-        }
+
 
         System.out.println("    Current depth: " + game.getScoreService().getDepth());
         System.out.println("    Killed monsters: " +game.getScoreService().getKilledMonsters());
 
-        int herodamage;
-        int herohealth;
-        int monsterdamage;
-        int monsterhealth;
+        int herolevel = game.getScoreService().getLevel();
+        int currentXp = game.getScoreService().getXp();
+        int requiredXp = game.getScoreService().getRequiredxp();
+        int herodamage = game.getScoreService().getStrength();
+        int herohealth = herodamage*5;
 
-        monsterhealth = MathUtils.random(10, 20);
-        monsterdamage = MathUtils.random(5, 10);
+        int monsterlevel = game.getScoreService().getDepth();
+        int monsterdamage = MathUtils.random(5, 10)*monsterlevel;
+        int monsterhealth = monsterdamage*monsterlevel;
 
-        Monster monster = new Monster(1, monsterhealth, monsterdamage);
+
+
+
+
+
+        monster = new Monster(game, monsterlevel, monsterhealth, monsterdamage);
         System.out.println("    Monster health: " + monster.getHealth());
 
-        herohealth = MathUtils.random(10, 20);
-        herodamage = MathUtils.random(5, 10);
 
-        Hero hero = new Hero(herohealth, herodamage);
-        System.out.println("    Hero health: " +hero.getHealth());
+        hero = new Hero(game, herolevel, currentXp, requiredXp, herohealth, herodamage);
+        System.out.println("    Hero health: " +hero.getHealth() + " Hero damage: " + herodamage);
 
         while (hero.getHealth() > 0 && monster.getHealth() > 0){
             hero.HeroAttack();
             monster.MonsterAttack();
         }
         if (hero.getHealth() <= 0 && monster.getHealth() > 0){
-            Character.BattleLose();
+            hero.BattleLose();
         }
         else {
-            Character.BattleWin();
-            game.getScoreService().addKilledMonsters();
-            System.out.println("Killed monsters: " + game.getScoreService().getKilledMonsters());
-            game.getScoreService().increaseDepth();
+            hero.BattleWin();
+
         }
         
 
@@ -108,6 +154,16 @@ public class BattleScreen extends AbstractScreen {
 
     }
     private void update(){
+        setDepthLevel();
+
+        depthlabel.setText("Depth: " + game.getScoreService().getDepth());
+
         stage.act();
+    }
+
+    private void setDepthLevel() {
+        if (game.getScoreService().getDepth() < 1){
+            game.getScoreService().setDepth(1);
+        }
     }
 }

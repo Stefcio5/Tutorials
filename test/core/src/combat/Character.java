@@ -1,6 +1,7 @@
 package combat;
 
 import com.myGdxGame.game.MyGdxGame;
+import screens.BattleScreen;
 import service.ScoreService;
 
 /**
@@ -8,14 +9,31 @@ import service.ScoreService;
  */
 public abstract class Character {
 
+    protected MyGdxGame game;
 
-    public static void BattleWin() {
+
+    public Character(MyGdxGame game){
+        this.game = game;
+    }
+
+
+    public void BattleWin() {
 
         System.out.println("You win!");
+        System.out.println("Current depth: " + game.getScoreService().getDepth());
+        game.getScoreService().addXp();
+        System.out.println("Current xp: " + game.getScoreService().getXp());
+        System.out.println("Required xp: " + game.getScoreService().getRequiredxp());
+        game.getScoreService().addLevel();
+        System.out.println("Your level: " + game.getScoreService().getLevel());
+        game.getScoreService().addKilledMonsters();
+        System.out.println("Killed monsters: " + game.getScoreService().getKilledMonsters());
+        game.getScoreService().increaseDepth();
 
     }
 
-    public static void BattleLose(){
+    public void BattleLose(){
         System.out.println("You lose!");
     }
+
 }
