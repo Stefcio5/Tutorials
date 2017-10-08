@@ -1,6 +1,8 @@
 package combat;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.utils.Timer;
 import com.myGdxGame.game.MyGdxGame;
 
 /**
@@ -16,7 +18,7 @@ public class Monster extends Character{
     }
 
     public void setHealth(int health) {
-        this.health = health;
+        Monster.health = health;
     }
 
     public int getDamage() {
@@ -24,26 +26,28 @@ public class Monster extends Character{
     }
 
     public void setDamage(int damage) {
-        this.damage = damage;
+        Monster.damage = damage;
     }
 
 
-    public Monster(MyGdxGame game, int MonsterLevel, int monsterhealth, int monsterdamage) {
+    public Monster(MyGdxGame game, int MonsterLevel, int monsterhealth) {
         super(game);
-        this.MonsterLevel = MonsterLevel;
+        Monster.MonsterLevel = MonsterLevel;
         health = monsterhealth;
-        damage = monsterdamage;
-
     }
 
     public void MonsterAttack() {
         if (Monster.health > 0) {
-            System.out.println("        Monster attacks you for " + damage + " damage!");
-            Hero.health -= damage;
-            System.out.println("You have " + Hero.health + " health remaining!");
+            damage = MathUtils.random(5, 10)*MonsterLevel;
+                System.out.println("        Monster attacks you for " + damage + " damage!");
+                Hero.health -= damage;
+                System.out.println("You have " + Hero.health + " health remaining!");
+
+            }
+
 
     }
 
 }
-}
+
 

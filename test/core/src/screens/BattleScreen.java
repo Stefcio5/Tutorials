@@ -8,9 +8,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.myGdxGame.game.MyGdxGame;
 import combat.Hero;
 import combat.Monster;
-import ui.BattleButton;
-import ui.GameplayScreenButton;
-import ui.IClickCallback;
+import ui.*;
+import com.badlogic.gdx.utils.Timer;
 
 /**
  * Created by Stefcio on 17.09.2017.
@@ -22,22 +21,39 @@ public class BattleScreen extends AbstractScreen {
     private Table playerstats;
     private Table monsterstats;
     private Label depthlabel;
+    private StrengthLabel hpLabel;
+    private HpBar hpBar;
     private Hero hero;
     private Monster monster;
+
+    private int herolevel;
+    private int currentXp;
+    private int requiredXp;
+    private int herodamage;
+    private int herohealth5;
+
+    private int monsterlevel;
+    private int monsterdamage;
+    private int monsterhealth;
+
 
     public BattleScreen(MyGdxGame game) {
         super(game);
         init();
+
     }
     private void init(){
         initTable();
         initGameplayScreenButton();
+        //initBattle();
         //initBattleButton();
     }
 
+
+
     private void initTable() {
         roottable = new Table();
-        roottable.defaults().pad(10);
+        roottable.defaults().pad(10).top().left();
         roottable.setFillParent(true);
         roottable.debug();
         roottable.setBounds(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
@@ -46,8 +62,18 @@ public class BattleScreen extends AbstractScreen {
         labelStyle.font = new BitmapFont();
         depthlabel = new Label("Depth: " +game.getScoreService().getDepth(), labelStyle);
 
+        hpBar = new HpBar(0.0f, 100.0f, 1f, false);
+        hpBar.setAnimateDuration(0.25f);
+
+        hpLabel = new StrengthLabel();
+
+
 
         playerstats = new Table();
+        playerstats.defaults().pad(5);
+        playerstats.add(hpBar);
+        playerstats.row();
+        playerstats.add(hpLabel);
         playerstats.debug();
 
         monsterstats = new Table();
@@ -77,10 +103,7 @@ public class BattleScreen extends AbstractScreen {
             public void onClick() {
                 Gdx.app.log("BattleButton", "Clicked");
                 Battle();
-
             }
-
-
 
         });
         return battleButton;
@@ -88,8 +111,45 @@ public class BattleScreen extends AbstractScreen {
     }
 
     public void Battle() {
+        Thread battlethread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                initBattle();
+                while (hero.getHealth() > 0 && monster.getHealth() > 0) {
+                    hero.HeroAttack();
+                    UpdateStats();
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    monster.MonsterAttack();
+                    UpdateStats();
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                if (hero.getHealth() <= 0 && monster.getHealth() > 0) {
+                    hero.BattleLose();
+
+                } else if (hero.getHealth() > 0 && monster.getHealth() <= 0) {
+                    hero.BattleWin();
+
+                }
+
+            }
+        });
+        battlethread.start();
+    }
 
 
+
+    public void initBattle() {
+
+        //TODO Refactor Monster and Hero classes
         System.out.println("    Current depth: " + game.getScoreService().getDepth());
         System.out.println("    Killed monsters: " +game.getScoreService().getKilledMonsters());
 
@@ -104,33 +164,21 @@ public class BattleScreen extends AbstractScreen {
         int monsterhealth = monsterdamage*monsterlevel;
 
 
-
-
-
-
-        monster = new Monster(game, monsterlevel, monsterhealth, monsterdamage);
+        monster = new Monster(game, monsterlevel, monsterhealth);
         System.out.println("    Monster health: " + monster.getHealth());
 
 
         hero = new Hero(game, herolevel, currentXp, requiredXp, herohealth, herodamage);
         System.out.println("    Hero health: " +hero.getHealth() + " Hero damage: " + herodamage);
 
-        while (hero.getHealth() > 0 && monster.getHealth() > 0){
-            hero.HeroAttack();
-            monster.MonsterAttack();
-        }
-        if (hero.getHealth() <= 0 && monster.getHealth() > 0){
-            hero.BattleLose();
-        }
-        else {
-            hero.BattleWin();
+        UpdateStats();
+    }
 
-        }
-        
+    public void UpdateStats() {
+        hpLabel.setText("Hp: " +hero.getHealth());
+        hpBar.setValue(hero.getHealth());
 
-
-        }
-
+    }
 
 
     private void initGameplayScreenButton() {
@@ -148,15 +196,24 @@ public class BattleScreen extends AbstractScreen {
         super.render(delta);
         update();
 
+
         spriteBatch.begin();
         stage.draw();
         spriteBatch.end();
 
     }
     private void update(){
+
         setDepthLevel();
 
+
+
         depthlabel.setText("Depth: " + game.getScoreService().getDepth());
+
+        if (hero != null) {
+
+           // hpLabel.setText("Hp: " + hero.getHealth());
+        }
 
         stage.act();
     }

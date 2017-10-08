@@ -1,5 +1,7 @@
 package combat;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.utils.Timer;
 import com.myGdxGame.game.MyGdxGame;
 
 /**
@@ -17,7 +19,7 @@ public class Hero extends Character {
     }
 
     public void setHealth(int health) {
-        this.health = health;
+        Hero.health = health;
     }
 
     public int getDamage() {
@@ -25,7 +27,7 @@ public class Hero extends Character {
     }
 
     public void setDamage(int damage) {
-        this.damage = damage;
+        Hero.damage = damage;
     }
 
     public static int getCurrentXp() {
@@ -38,11 +40,11 @@ public class Hero extends Character {
 
 
 
-    public Hero(MyGdxGame game,int level, int currentXp, int requiredXp, int herohealth, int herodamage) {
+    public Hero(MyGdxGame game, int level, int currentXp, int requiredXp, int herohealth, int herodamage) {
         super(game);
-        this.level = level;
-        this.currentXp = currentXp;
-        this.requiredXp = requiredXp;
+        Hero.level = level;
+        Hero.currentXp = currentXp;
+        Hero.requiredXp = requiredXp;
         health = herohealth;
         damage = herodamage;
 
@@ -50,9 +52,13 @@ public class Hero extends Character {
 
     public void HeroAttack() {
         if (Hero.health > 0) {
-            System.out.println("You did " + damage + " damage");
-            Monster.health -= damage;
-            System.out.println("        Monster have " + Monster.health + " health remaining!");
+
+                System.out.println("You did " + damage + " damage");
+                Monster.health -= damage;
+                System.out.println("        Monster have " + Monster.health + " health remaining!");
+
+
+
         }
     }
 }

@@ -1,5 +1,6 @@
 package combat;
 
+import com.badlogic.gdx.utils.Timer;
 import com.myGdxGame.game.MyGdxGame;
 import screens.BattleScreen;
 import service.ScoreService;
@@ -10,6 +11,7 @@ import service.ScoreService;
 public abstract class Character {
 
     protected MyGdxGame game;
+    protected float timesinceattack;
 
 
     public Character(MyGdxGame game){
