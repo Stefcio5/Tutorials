@@ -3,6 +3,7 @@ package screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.myGdxGame.game.MyGdxGame;
@@ -21,6 +22,7 @@ public class BattleScreen extends AbstractScreen {
     private Table playerstats;
     private Table monsterstats;
     private Label depthlabel;
+    private boolean battleisclicked;
     private StrengthLabel hpLabel;
     private HpBar hpBar;
     private Hero hero;
@@ -62,7 +64,7 @@ public class BattleScreen extends AbstractScreen {
         labelStyle.font = new BitmapFont();
         depthlabel = new Label("Depth: " +game.getScoreService().getDepth(), labelStyle);
 
-        hpBar = new HpBar(0.0f, 100.0f, 1f, false);
+        hpBar = new HpBar(0.0f, 100.0f, 1.0f, false);
         hpBar.setAnimateDuration(0.25f);
 
         hpLabel = new StrengthLabel();
@@ -103,6 +105,7 @@ public class BattleScreen extends AbstractScreen {
             public void onClick() {
                 Gdx.app.log("BattleButton", "Clicked");
                 Battle();
+                battleButton.setTouchable(Touchable.disabled);
             }
 
         });
@@ -134,9 +137,11 @@ public class BattleScreen extends AbstractScreen {
 
                 if (hero.getHealth() <= 0 && monster.getHealth() > 0) {
                     hero.BattleLose();
+                    battleButton.setTouchable(Touchable.enabled);
 
                 } else if (hero.getHealth() > 0 && monster.getHealth() <= 0) {
                     hero.BattleWin();
+                    battleButton.setTouchable(Touchable.enabled);
 
                 }
 
@@ -176,7 +181,7 @@ public class BattleScreen extends AbstractScreen {
 
     public void UpdateStats() {
         hpLabel.setText("Hp: " +hero.getHealth());
-        hpBar.setValue(hero.getHealth());
+        hpBar.setValue((hero.getHealth()*100)/(hero.getDamage()*5));
 
     }
 
