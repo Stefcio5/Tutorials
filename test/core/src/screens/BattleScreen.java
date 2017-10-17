@@ -22,21 +22,25 @@ public class BattleScreen extends AbstractScreen {
     private Table playerstats;
     private Table monsterstats;
     private Label depthlabel;
-    private boolean battleisclicked;
+    private StrengthLabel levelLabel;
+    private StrengthLabel strengthLabel;
     private StrengthLabel hpLabel;
     private HpBar hpBar;
+    private StrengthLabel monsterLevelLabel;
+    private HpBar monsterHpBar;
+    private StrengthLabel monsterHpLabel;
     private Hero hero;
     private Monster monster;
 
-    private int herolevel;
-    private int currentXp;
-    private int requiredXp;
-    private int herodamage;
-    private int herohealth5;
-
-    private int monsterlevel;
-    private int monsterdamage;
-    private int monsterhealth;
+//    private int herolevel;
+//    private int currentXp;
+//    private int requiredXp;
+//    private int herodamage;
+//    private int herohealth5;
+//
+//    private int monsterlevel;
+//    private int monsterdamage;
+//    private int monsterhealth;
 
 
     public BattleScreen(MyGdxGame game) {
@@ -68,17 +72,34 @@ public class BattleScreen extends AbstractScreen {
         hpBar.setAnimateDuration(0.25f);
 
         hpLabel = new StrengthLabel();
+        levelLabel = new StrengthLabel();
+        strengthLabel = new StrengthLabel();
 
 
 
         playerstats = new Table();
-        playerstats.defaults().pad(5);
+        playerstats.defaults().pad(5).left();
+        playerstats.add(levelLabel);
+        playerstats.row();
         playerstats.add(hpBar);
         playerstats.row();
         playerstats.add(hpLabel);
+        playerstats.row();
+        playerstats.add(strengthLabel);
         playerstats.debug();
 
+        monsterLevelLabel = new StrengthLabel();
+        monsterHpLabel = new StrengthLabel();
+        monsterHpBar = new HpBar(0.0f, 100.0f, 1.0f, false);
+        monsterHpBar.setAnimateDuration(0.25f);
+
         monsterstats = new Table();
+        monsterstats.defaults().pad(5).left();
+        monsterstats.add(monsterLevelLabel);
+        monsterstats.row();
+        monsterstats.add(monsterHpBar);
+        monsterstats.row();
+        monsterstats.add(monsterHpLabel);
         monsterstats.debug();
 
 
@@ -180,8 +201,14 @@ public class BattleScreen extends AbstractScreen {
     }
 
     public void UpdateStats() {
+        levelLabel.setText("Level: " +game.getScoreService().getLevel());
         hpLabel.setText("Hp: " +hero.getHealth());
         hpBar.setValue((hero.getHealth()*100)/(hero.getDamage()*5));
+        strengthLabel.setText("Strength: "+game.getScoreService().getStrength());
+
+        monsterLevelLabel.setText("Level: " +game.getScoreService().getDepth());
+        monsterHpBar.setValue(monster.getHealth());
+        monsterHpLabel.setText("Hp: "+monster.getHealth());
 
     }
 
