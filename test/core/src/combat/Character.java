@@ -19,6 +19,7 @@ public abstract class Character {
     }
 
 
+
     public void BattleWin() {
 
         System.out.println("You win!");

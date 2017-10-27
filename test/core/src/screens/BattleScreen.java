@@ -1,16 +1,19 @@
 package screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.myGdxGame.game.MyGdxGame;
 import combat.Hero;
 import combat.Monster;
 import ui.*;
-import com.badlogic.gdx.utils.Timer;
 
 /**
  * Created by Stefcio on 17.09.2017.
@@ -22,15 +25,18 @@ public class BattleScreen extends AbstractScreen {
     private Table playerstats;
     private Table monsterstats;
     private Label depthlabel;
-    private StrengthLabel levelLabel;
-    private StrengthLabel strengthLabel;
-    private StrengthLabel hpLabel;
+    private AttributeLabel levelLabel;
+    private AttributeLabel attributeLabel;
+    private AttributeLabel hpLabel;
     private HpBar hpBar;
-    private StrengthLabel monsterLevelLabel;
+    private AttributeLabel monsterLevelLabel;
     private HpBar monsterHpBar;
-    private StrengthLabel monsterHpLabel;
+    private AttributeLabel monsterHpLabel;
     private Hero hero;
     private Monster monster;
+    private Texture roottabletexture;
+    private Drawable roottabledrawable;
+    private boolean loopbattle = false;
 
 //    private int herolevel;
 //    private int currentXp;
@@ -58,7 +64,10 @@ public class BattleScreen extends AbstractScreen {
 
 
     private void initTable() {
+        roottabletexture = new Texture(Gdx.files.internal("roottable.png"));
+        roottabledrawable = new TextureRegionDrawable(new TextureRegion(roottabletexture));
         roottable = new Table();
+        roottable.setBackground(roottabledrawable);
         roottable.defaults().pad(10).top().left();
         roottable.setFillParent(true);
         roottable.debug();
@@ -71,9 +80,9 @@ public class BattleScreen extends AbstractScreen {
         hpBar = new HpBar(0.0f, 100.0f, 1.0f, false);
         hpBar.setAnimateDuration(0.25f);
 
-        hpLabel = new StrengthLabel();
-        levelLabel = new StrengthLabel();
-        strengthLabel = new StrengthLabel();
+        hpLabel = new AttributeLabel();
+        levelLabel = new AttributeLabel();
+        attributeLabel = new AttributeLabel();
 
 
 
@@ -85,11 +94,13 @@ public class BattleScreen extends AbstractScreen {
         playerstats.row();
         playerstats.add(hpLabel);
         playerstats.row();
-        playerstats.add(strengthLabel);
+        playerstats.add(attributeLabel);
         playerstats.debug();
+        playerstats.setVisible(false);
 
-        monsterLevelLabel = new StrengthLabel();
-        monsterHpLabel = new StrengthLabel();
+
+        monsterLevelLabel = new AttributeLabel();
+        monsterHpLabel = new AttributeLabel();
         monsterHpBar = new HpBar(0.0f, 100.0f, 1.0f, false);
         monsterHpBar.setAnimateDuration(0.25f);
 
@@ -101,6 +112,7 @@ public class BattleScreen extends AbstractScreen {
         monsterstats.row();
         monsterstats.add(monsterHpLabel);
         monsterstats.debug();
+        monsterstats.setVisible(false);
 
 
 
@@ -125,8 +137,17 @@ public class BattleScreen extends AbstractScreen {
             @Override
             public void onClick() {
                 Gdx.app.log("BattleButton", "Clicked");
-                Battle();
                 battleButton.setTouchable(Touchable.disabled);
+                playerstats.setVisible(true);
+                monsterstats.setVisible(true);
+                gameplayScreenButton.setTouchable(Touchable.disabled);
+                if (loopbattle){
+                    loopbattle = false;
+                }
+                else {
+                    loopbattle = true;
+                }
+                Battle();
             }
 
         });
@@ -135,41 +156,50 @@ public class BattleScreen extends AbstractScreen {
     }
 
     public void Battle() {
-        Thread battlethread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                initBattle();
-                while (hero.getHealth() > 0 && monster.getHealth() > 0) {
-                    hero.HeroAttack();
-                    UpdateStats();
-                    try {
-                        Thread.sleep(1000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
+
+            Thread battlethread = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    while (loopbattle){
+
+                    initBattle();
+                    while (hero.getHealth() > 0 && monster.getHealth() > 0) {
+                        hero.HeroAttack();
+                        UpdateStats();
+                        try {
+                            Thread.sleep(500);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        monster.MonsterAttack();
+                        UpdateStats();
+                        try {
+                            Thread.sleep(500);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
                     }
-                    monster.MonsterAttack();
-                    UpdateStats();
-                    try {
-                        Thread.sleep(1000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
+
+
+                    if (hero.getHealth() <= 0 && monster.getHealth() > 0) {
+                        hero.BattleLose();
+                        battleButton.setTouchable(Touchable.enabled);
+                        gameplayScreenButton.setTouchable(Touchable.enabled);
+
+                    } else if (hero.getHealth() > 0 && monster.getHealth() <= 0) {
+                        hero.BattleWin();
+                        battleButton.setTouchable(Touchable.enabled);
+                        gameplayScreenButton.setTouchable(Touchable.enabled);
+
                     }
-                }
-
-                if (hero.getHealth() <= 0 && monster.getHealth() > 0) {
-                    hero.BattleLose();
-                    battleButton.setTouchable(Touchable.enabled);
-
-                } else if (hero.getHealth() > 0 && monster.getHealth() <= 0) {
-                    hero.BattleWin();
-                    battleButton.setTouchable(Touchable.enabled);
 
                 }
-
             }
-        });
-        battlethread.start();
-    }
+
+            });
+            battlethread.start();
+        }
+
 
 
 
@@ -190,7 +220,8 @@ public class BattleScreen extends AbstractScreen {
         int monsterhealth = monsterdamage*monsterlevel;
 
 
-        monster = new Monster(game, monsterlevel, monsterhealth);
+        monster = new Monster(game, monsterlevel, monsterhealth, monsterhealth);
+
         System.out.println("    Monster health: " + monster.getHealth());
 
 
@@ -204,10 +235,10 @@ public class BattleScreen extends AbstractScreen {
         levelLabel.setText("Level: " +game.getScoreService().getLevel());
         hpLabel.setText("Hp: " +hero.getHealth());
         hpBar.setValue((hero.getHealth()*100)/(hero.getDamage()*5));
-        strengthLabel.setText("Strength: "+game.getScoreService().getStrength());
+        attributeLabel.setText("Strength: "+game.getScoreService().getStrength());
 
         monsterLevelLabel.setText("Level: " +game.getScoreService().getDepth());
-        monsterHpBar.setValue(monster.getHealth());
+        monsterHpBar.setValue((monster.getHealth()*100) / monster.getMaxHp());
         monsterHpLabel.setText("Hp: "+monster.getHealth());
 
     }
@@ -217,6 +248,12 @@ public class BattleScreen extends AbstractScreen {
         gameplayScreenButton = new GameplayScreenButton(new IClickCallback() {
             @Override
             public void onClick() {
+                if (loopbattle){
+                    loopbattle = false;
+                }
+                else {
+                    loopbattle = true;
+                }
                 game.setScreen(new GameplayScreen(game));
             }
         });
@@ -241,11 +278,6 @@ public class BattleScreen extends AbstractScreen {
 
 
         depthlabel.setText("Depth: " + game.getScoreService().getDepth());
-
-        if (hero != null) {
-
-           // hpLabel.setText("Hp: " + hero.getHealth());
-        }
 
         stage.act();
     }

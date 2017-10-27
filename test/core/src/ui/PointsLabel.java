@@ -13,8 +13,8 @@ public class PointsLabel extends Label {
     }
 
     private void init() {
-        this.setX(20);
-        this.setY(650);
+//        this.setX(20);
+//        this.setY(650);
     }
 
     private static LabelStyle prepareLabelStyle() {
