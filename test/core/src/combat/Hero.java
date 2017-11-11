@@ -3,6 +3,8 @@ package combat;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.Timer;
 import com.myGdxGame.game.MyGdxGame;
+import screens.BattleScreen;
+import ui.DamageIndicatorLabel;
 
 /**
  * Created by Stefcio on 22.09.2017.
@@ -13,6 +15,7 @@ public class Hero extends Character {
     static int level;
     static int currentXp;
     static int requiredXp;
+
 
     public int getHealth() {
         return health;
@@ -56,6 +59,8 @@ public class Hero extends Character {
                 System.out.println("You did " + damage + " damage");
                 Monster.health -= damage;
                 System.out.println("        Monster have " + Monster.health + " health remaining!");
+
+
 
 
 

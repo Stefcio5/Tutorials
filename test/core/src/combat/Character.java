@@ -11,7 +11,6 @@ import service.ScoreService;
 public abstract class Character {
 
     protected MyGdxGame game;
-    protected float timesinceattack;
 
 
     public Character(MyGdxGame game){

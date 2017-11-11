@@ -42,6 +42,10 @@ public class Monster extends Character{
 
     }
 
+    public int getDamage() {
+        return damage;
+    }
+
     public void MonsterAttack() {
         if (Monster.health > 0) {
             damage = MathUtils.random(5, 10)*monsterLevel;
