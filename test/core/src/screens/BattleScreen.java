@@ -24,6 +24,7 @@ public class BattleScreen extends AbstractScreen {
     private Table roottable;
     private Table playerstats;
     private Table monsterstats;
+    private Table rewardTable;
     private Label depthlabel;
     private AttributeLabel levelLabel;
     private AttributeLabel attributeLabel;
@@ -39,6 +40,7 @@ public class BattleScreen extends AbstractScreen {
     private boolean loopbattle = false;
     private DamageIndicatorLabel monsterDamageIndicatorLabel;
     private DamageIndicatorLabel heroDamageIndicatorLabel;
+    private AttributeLabel rewardLabel;
 
 //    private int herolevel;
 //    private int currentXp;
@@ -85,9 +87,12 @@ public class BattleScreen extends AbstractScreen {
         hpLabel = new AttributeLabel();
         levelLabel = new AttributeLabel();
         attributeLabel = new AttributeLabel();
+        rewardLabel = new AttributeLabel();
 
         monsterDamageIndicatorLabel = new DamageIndicatorLabel();
         heroDamageIndicatorLabel = new DamageIndicatorLabel();
+
+        rewardTable = new Table();
 
 
 
@@ -101,8 +106,12 @@ public class BattleScreen extends AbstractScreen {
         playerstats.add(hpLabel);
         playerstats.row();
         playerstats.add(attributeLabel);
+        playerstats.row();
+        playerstats.add(rewardLabel);
+        playerstats.add(rewardTable);
+
         playerstats.debug();
-        playerstats.setVisible(false);
+        playerstats.setVisible(true);
 
 
         monsterLevelLabel = new AttributeLabel();
@@ -246,6 +255,7 @@ public class BattleScreen extends AbstractScreen {
         hpLabel.setText("Hp: " +hero.getHealth());
         hpBar.setValue((hero.getHealth()*100)/(hero.getDamage()*5));
         attributeLabel.setText("Strength: "+game.getScoreService().getStrength());
+        rewardLabel.setText("Reward: " +game.getScoreService().getGainedxp() + " xp");
 
         monsterLevelLabel.setText("Level: " +game.getScoreService().getDepth());
         monsterHpBar.setValue((monster.getHealth()*100) / monster.getMaxHp());

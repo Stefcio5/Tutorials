@@ -1,9 +1,5 @@
 [
     {
-        "merged": "C:\\Users\\Stefcio\\Documents\\Tutorials\\test\\test\\android\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\ic_launcher.png",
-        "source": "C:\\Users\\Stefcio\\Documents\\Tutorials\\test\\test\\android\\res\\drawable-xhdpi\\ic_launcher.png"
-    },
-    {
         "merged": "C:\\Users\\Stefcio\\Documents\\Tutorials\\test\\android\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\ic_launcher.png",
         "source": "C:\\Users\\Stefcio\\Documents\\Tutorials\\test\\android\\res\\drawable-xhdpi\\ic_launcher.png"
     }

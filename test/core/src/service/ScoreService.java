@@ -20,6 +20,13 @@ public class ScoreService {
 
 
 
+    private int gainedxp;
+    public int getGainedxp() {
+        return gainedxp;
+    }
+
+
+
 
     private int points;
     private int strength;
@@ -42,7 +49,7 @@ public class ScoreService {
         int calcxp = (int) (Math.pow(depth, 1.1))*10;
         int calcmin = (int) (calcxp*(80.0f/100.0f));
         int calcmax = (int) (calcxp*(120.0f/100.0f));
-        int gainedxp = MathUtils.random(calcmin, calcmax);
+        gainedxp = MathUtils.random(calcmin, calcmax);
         System.out.println("min exp: " + calcmin);
         System.out.println("max exp: " + calcmax);
         System.out.println("You've gained " + gainedxp + " xp!");

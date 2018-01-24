@@ -19,6 +19,7 @@ public class GameplayScreen extends AbstractScreen {
     private PlayerButton playerButton;
     private ResetScoreButton resetScoreButton;
     private BattleScreenButton battleScreenButton;
+    private AttributeLabel levelLabel;
     private PointsLabel pointsLabel;
     private AttributeLabel strengthLabel;
     private FlyingObjectController flyingObjectController;
@@ -36,11 +37,19 @@ public class GameplayScreen extends AbstractScreen {
         initPlayerButton();
         initResetScoreButton();
         initGameplayScreenButton();
+        initLevelLabel();
         initPointsLabel();
         initStrengthLabel();
         initPointProgressBar();
         initFlyingObjectController();
 
+    }
+
+    private void initLevelLabel() {
+        levelLabel = new AttributeLabel();
+        levelLabel.setX(20);
+        levelLabel.setY(670);
+        stage.addActor(levelLabel);
     }
 
     private void initGameplayScreenButton() {
@@ -131,6 +140,7 @@ public class GameplayScreen extends AbstractScreen {
     }
 
     private void update() {
+        levelLabel.setText("Level: " + game.getScoreService().getLevel());
         pointsLabel.setText("Points: " + game.getScoreService().getPoints());
         strengthLabel.setText("Strength: " +game.getScoreService().getStrength());
         pointsProgressBar.setValue(game.getScoreService().getPoints());
