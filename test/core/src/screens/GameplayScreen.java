@@ -19,9 +19,12 @@ public class GameplayScreen extends AbstractScreen {
     private PlayerButton playerButton;
     private ResetScoreButton resetScoreButton;
     private BattleScreenButton battleScreenButton;
+    private StrengthButton strengthButton;
+
     private AttributeLabel levelLabel;
     private PointsLabel pointsLabel;
     private AttributeLabel strengthLabel;
+    private AttributeLabel attributeLabel;
     private FlyingObjectController flyingObjectController;
     private PointsProgressBar pointsProgressBar;
 
@@ -37,12 +40,31 @@ public class GameplayScreen extends AbstractScreen {
         initPlayerButton();
         initResetScoreButton();
         initGameplayScreenButton();
+        initStrengthButton();
         initLevelLabel();
         initPointsLabel();
         initStrengthLabel();
+        initAttributeLabel();
         initPointProgressBar();
         initFlyingObjectController();
 
+    }
+
+    private void initStrengthButton() {
+        strengthButton = new StrengthButton(new IClickCallback() {
+            @Override
+            public void onClick() {
+                game.getScoreService().addStrength();
+            }
+        });
+        stage.addActor(strengthButton);
+    }
+
+    private void initAttributeLabel() {
+        attributeLabel = new AttributeLabel();
+        attributeLabel.setX(20);
+        attributeLabel.setY(610);
+        stage.addActor(attributeLabel);
     }
 
     private void initLevelLabel() {
@@ -114,7 +136,7 @@ public class GameplayScreen extends AbstractScreen {
             public void onClick() {
                 player.reactOnClick();
                 game.getScoreService().addPoint();
-                game.getScoreService().addStrength();
+                game.getScoreService().addAttribute();
             }
         });
 
@@ -143,6 +165,7 @@ public class GameplayScreen extends AbstractScreen {
         levelLabel.setText("Level: " + game.getScoreService().getLevel());
         pointsLabel.setText("Points: " + game.getScoreService().getPoints());
         strengthLabel.setText("Strength: " +game.getScoreService().getStrength());
+        attributeLabel.setText("Attribute points to add: " + game.getScoreService().getAttributes());
         pointsProgressBar.setValue(game.getScoreService().getPoints());
 
         stage.act();
