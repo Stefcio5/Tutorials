@@ -21,6 +21,7 @@ import ui.*;
 public class BattleScreen extends AbstractScreen {
     private GameplayScreenButton gameplayScreenButton;
     private BattleButton battleButton;
+    private DepthButton depthButton;
     private Table roottable;
     private Table playerstats;
     private Table monsterstats;
@@ -131,6 +132,8 @@ public class BattleScreen extends AbstractScreen {
         monsterstats.add(heroDamageIndicatorLabel);
         monsterstats.row();
         monsterstats.add(monsterHpLabel);
+        monsterstats.row();
+        monsterstats.add(initDepthButton()).fillX().height(50);
         monsterstats.debug();
         monsterstats.setVisible(false);
 
@@ -153,6 +156,18 @@ public class BattleScreen extends AbstractScreen {
 
 
 
+    }
+//    Depth Button init
+
+    private DepthButton initDepthButton() {
+        depthButton = new DepthButton(new IClickCallback() {
+            @Override
+            public void onClick() {
+                Gdx.app.log("DepthBtn", "DepthButton clicked");
+                game.getScoreService().increaseDepth();
+            }
+        });
+        return depthButton;
     }
 
     private BattleButton initBattleButton() {
@@ -304,8 +319,15 @@ public class BattleScreen extends AbstractScreen {
         setDepthLevel();
 
 
+// Depth label and depth button settings
 
         depthlabel.setText("Depth: " + game.getScoreService().getDepth());
+        if (game.getScoreService().getKilledMonsters() >= 5){
+            depthButton.setVisible(true);
+        }
+        else {
+            depthButton.setVisible(false);
+        }
 
         stage.act();
     }

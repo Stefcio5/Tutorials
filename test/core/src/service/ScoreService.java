@@ -130,15 +130,13 @@ public class ScoreService {
         updateKilledMonstersInPrefs();
         }
         public void increaseDepth(){
-            if(killedMonsters == 10){
                 depth++;
                 killedMonsters = 0;
                 System.out.println("Depth increased!");
                 updateDepthInPrefs();
                 updateKilledMonstersInPrefs();
-
             }
-        }
+
 
     private void updateDepthInPrefs() {
             prefs.putInteger(GAME_DEPTH, depth);
