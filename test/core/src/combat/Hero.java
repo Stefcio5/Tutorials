@@ -15,8 +15,11 @@ public class Hero extends Character {
     static int level;
     static int currentXp;
     static int requiredXp;
+    static float expPercentage;
 
-
+    public static int getExpPercentage() {
+        return (int) expPercentage;
+    }
     public int getHealth() {
         return health;
     }
@@ -41,6 +44,10 @@ public class Hero extends Character {
         Hero.currentXp = currnetXp;
     }
 
+    public static int getRequiredXp() {
+        return requiredXp;
+    }
+
 
 
     public Hero(MyGdxGame game, int level, int currentXp, int requiredXp, int herohealth, int herodamage) {
@@ -50,6 +57,7 @@ public class Hero extends Character {
         Hero.requiredXp = requiredXp;
         health = herohealth;
         damage = herodamage;
+        Hero.expPercentage = ((currentXp*100.0f)/requiredXp);
 
     }
 

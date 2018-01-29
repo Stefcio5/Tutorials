@@ -27,6 +27,7 @@ public class BattleScreen extends AbstractScreen {
     private Table rewardTable;
     private Label depthlabel;
     private AttributeLabel levelLabel;
+    private AttributeLabel experienceLabel;
     private AttributeLabel attributeLabel;
     private AttributeLabel hpLabel;
     private HpBar hpBar;
@@ -86,6 +87,7 @@ public class BattleScreen extends AbstractScreen {
 
         hpLabel = new AttributeLabel();
         levelLabel = new AttributeLabel();
+        experienceLabel = new AttributeLabel();
         attributeLabel = new AttributeLabel();
         rewardLabel = new AttributeLabel();
 
@@ -99,6 +101,8 @@ public class BattleScreen extends AbstractScreen {
         playerstats = new Table();
         playerstats.defaults().pad(5).left();
         playerstats.add(levelLabel);
+        playerstats.row();
+        playerstats.add(experienceLabel);
         playerstats.row();
         playerstats.add(hpBar);
         playerstats.add(monsterDamageIndicatorLabel);
@@ -252,6 +256,7 @@ public class BattleScreen extends AbstractScreen {
 
     public void UpdateStats() {
         levelLabel.setText("Level: " +game.getScoreService().getLevel());
+        experienceLabel.setText("Exp: " +Hero.getCurrentXp() + "/" + Hero.getRequiredXp() + " (" + Hero.getExpPercentage() + "%)");
         hpLabel.setText("Hp: " +hero.getHealth());
         hpBar.setValue((hero.getHealth()*100)/(hero.getDamage()*5));
         attributeLabel.setText("Strength: "+game.getScoreService().getStrength());

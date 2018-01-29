@@ -39,6 +39,7 @@ public class ScoreService {
     private int level;
     private int requiredxp;
 
+
     public ScoreService() {
         init();
     }

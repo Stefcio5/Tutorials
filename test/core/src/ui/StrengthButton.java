@@ -10,7 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
  */
 public class StrengthButton extends TextButton {
     public StrengthButton(final IClickCallback callback){
-        super("Add Strength", prepareTextButtonStyle());
+        super("", prepareTextButtonStyle());
         init(callback);
 
     }

@@ -57,6 +57,7 @@ public class GameplayScreen extends AbstractScreen {
                 game.getScoreService().addStrength();
             }
         });
+        strengthButton.setText("Add strength");
         stage.addActor(strengthButton);
     }
 
