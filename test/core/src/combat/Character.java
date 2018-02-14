@@ -30,7 +30,7 @@ public abstract class Character {
         System.out.println("Your level: " + game.getScoreService().getLevel());
         game.getScoreService().addKilledMonsters();
         System.out.println("Killed monsters: " + game.getScoreService().getKilledMonsters());
-//        game.getScoreService().increaseDepth();
+//
 
     }
 

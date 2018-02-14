@@ -18,6 +18,7 @@ public class ScoreService {
     public final static String GAME_DEPTH = "com.mygdx.game.prefs.depth";
     public final static String GAME_REQUIREDXP = "com.mygdx.game.prefs.requiredxp";
     public final static String GAME_ATTRIBUTES = "com.mygdx.game.prefs.attributes";
+    public final static String GAME_DEXTERITY = "com.mygdx.game.prefs.dexterity";
 
 
 
@@ -25,8 +26,6 @@ public class ScoreService {
     public int getGainedxp() {
         return gainedxp;
     }
-
-
 
 
     private int points;
@@ -38,6 +37,7 @@ public class ScoreService {
     private int xp;
     private int level;
     private int requiredxp;
+    private int dexterity;
 
 
     public ScoreService() {
@@ -105,8 +105,16 @@ public class ScoreService {
         if (attributes >= 1) {
             strength += 1;
             attributes -= 1;
-            updateSavedScoreInPrefs();
+            updateAttributesInPrefs();
             updateStrengthInPrefs();
+        }
+    }
+    public void addDexterity(){
+        if (attributes>=1){
+            dexterity += 1;
+            attributes-= 1;
+            updateAttributesInPrefs();
+            updateDexterityInPrefs();
         }
     }
 
@@ -157,10 +165,15 @@ public class ScoreService {
         prefs.putInteger(GAME_STRENGTH, strength);
         prefs.flush();
     }
+    private void updateDexterityInPrefs(){
+        prefs.putInteger(GAME_DEXTERITY, dexterity);
+        prefs.flush();
+    }
 
     private void loadScore() {
         points = prefs.getInteger(GAME_SCORE);
         strength = prefs.getInteger(GAME_STRENGTH);
+        dexterity = prefs.getInteger(GAME_DEXTERITY);
         killedMonsters = prefs.getInteger(GAME_KILLED_MONSTERS);
         depth = prefs.getInteger(GAME_DEPTH);
         xp = prefs.getInteger(GAME_XP);
@@ -175,6 +188,9 @@ public class ScoreService {
 
     public int getStrength(){
         return strength;
+    }
+    public int getDexterity() {
+        return dexterity;
     }
     public int getAttributes() {
         return attributes;
@@ -223,6 +239,7 @@ public class ScoreService {
         level = 1;
         updateSavedScoreInPrefs();
         updateStrengthInPrefs();
+        updateDexterityInPrefs();
         updateAttributesInPrefs();
         updateKilledMonstersInPrefs();
         updateDepthInPrefs();

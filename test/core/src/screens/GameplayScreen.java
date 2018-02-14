@@ -20,6 +20,7 @@ public class GameplayScreen extends AbstractScreen {
     private ResetScoreButton resetScoreButton;
     private BattleScreenButton battleScreenButton;
     private StrengthButton strengthButton;
+    private StatsWindow statsWindow;
 
     private AttributeLabel levelLabel;
     private PointsLabel pointsLabel;
@@ -50,11 +51,14 @@ public class GameplayScreen extends AbstractScreen {
 
     }
 
+
+
     private void initStrengthButton() {
         strengthButton = new StrengthButton(new IClickCallback() {
             @Override
             public void onClick() {
-                game.getScoreService().addStrength();
+                statsWindow = new StatsWindow();
+                stage.addActor(statsWindow);
             }
         });
         strengthButton.setText("Add strength");
