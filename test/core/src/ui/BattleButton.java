@@ -3,6 +3,7 @@ package ui;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.myGdxGame.game.MyGdxGame;
@@ -12,8 +13,8 @@ import com.myGdxGame.game.MyGdxGame;
  */
 public class BattleButton extends TextButton{
 
-        public BattleButton(final IClickCallback callback) {
-            super("Battle", prepareTextButtonStyle());
+        public BattleButton(Skin skin, String styleName, final IClickCallback callback) {
+            super("Battle", skin, styleName);
             init(callback);
         }
 

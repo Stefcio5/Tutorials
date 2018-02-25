@@ -2,6 +2,7 @@ package ui;
 
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
@@ -9,8 +10,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
  * Created by Stefcio on 24.01.2018.
  */
 public class StrengthButton extends TextButton {
-    public StrengthButton(final IClickCallback callback){
-        super("", prepareTextButtonStyle());
+    public StrengthButton(Skin skin, String styleName, final IClickCallback callback){
+        super("", skin, styleName);
         init(callback);
 
     }

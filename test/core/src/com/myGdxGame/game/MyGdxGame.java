@@ -3,6 +3,7 @@ package com.myGdxGame.game;
 import com.badlogic.gdx.Game;
 import screens.SplashScreen;
 import service.ScoreService;
+import ui.Assets;
 
 public class MyGdxGame extends Game {
 
@@ -14,6 +15,7 @@ public class MyGdxGame extends Game {
 
 
     private ScoreService scoreService;
+    public Assets assets;
 
 
 	/*
@@ -46,7 +48,12 @@ public class MyGdxGame extends Game {
 
     private void init() {
         initScoreService();
+        initAssetManager();
 
+    }
+
+    private void initAssetManager() {
+        assets = new Assets();
     }
 
     private void initScoreService() {

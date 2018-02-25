@@ -2,6 +2,7 @@ package ui;
 
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
@@ -10,8 +11,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
  */
 public class DepthButton extends TextButton {
 
-        public DepthButton(final IClickCallback callback){
-            super("Increase depth", prepareTextButtonStyle());
+        public DepthButton(Skin skin, String styleName, final IClickCallback callback){
+            super("Increase depth", skin, styleName);
             init(callback);
 
         }
@@ -32,10 +33,5 @@ public class DepthButton extends TextButton {
             });
         }
 
-        private static TextButton.TextButtonStyle prepareTextButtonStyle(){
-            TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
-            textButtonStyle.font = new BitmapFont();
-            return textButtonStyle;
-        }
     }
 

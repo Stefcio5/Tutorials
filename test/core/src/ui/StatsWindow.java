@@ -7,27 +7,29 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.myGdxGame.game.MyGdxGame;
 
 /**
  * Created by Stefcio on 14.02.2018.
  */
 public class StatsWindow extends Window {
+
     private static WindowStyle windowStyle;
 
     static {
-
 
         windowStyle = new WindowStyle(new BitmapFont(), Color.BLACK, new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("roottable.png")))));
     }
 
 
 
-    public StatsWindow() {
-        super("", windowStyle);
+    public StatsWindow(Skin skin) {
+        super("Attributes", skin);
 
         TextButton.TextButtonStyle closeButtonStyle = new TextButton.TextButtonStyle();
         closeButtonStyle.font = new BitmapFont();
@@ -40,7 +42,7 @@ public class StatsWindow extends Window {
                 setVisible(false);
             }
         });
-        getTitleTable().add(closeButton).size(20f, 20f).padRight(0f).padTop(20f);
+        getTitleTable().add(closeButton).size(20f, 20f).padRight(0f).padTop(0f);
         getTitleTable().setDebug(true);
         setClip(false);
         setTransform(true);

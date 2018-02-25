@@ -2,13 +2,14 @@ package ui;
 
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
 /**
  * Created by Stefcio on 16.09.2017.
  */
 public class AttributeLabel extends Label {
-    public AttributeLabel() {
-        super("", prepareLabelStyle());
+    public AttributeLabel(Skin skin, String styleName) {
+        super("", skin, styleName);
         init();
     }
     private void init(){

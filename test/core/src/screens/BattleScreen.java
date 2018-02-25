@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
@@ -19,6 +20,7 @@ import ui.*;
  * Created by Stefcio on 17.09.2017.
  */
 public class BattleScreen extends AbstractScreen {
+    private Skin skin;
     private GameplayScreenButton gameplayScreenButton;
     private BattleButton battleButton;
     private DepthButton depthButton;
@@ -61,12 +63,16 @@ public class BattleScreen extends AbstractScreen {
 
     }
     private void init(){
+        initSkin();
         initTable();
         initGameplayScreenButton();
         //initBattle();
         //initBattleButton();
     }
 
+    private void initSkin() {
+        skin = game.assets.manager.get(game.assets.uiSkin);
+    }
 
 
     private void initTable() {
@@ -79,18 +85,18 @@ public class BattleScreen extends AbstractScreen {
         roottable.debug();
         roottable.setBounds(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
-        Label.LabelStyle labelStyle = new Label.LabelStyle();
-        labelStyle.font = new BitmapFont();
-        depthlabel = new Label("Depth: " +game.getScoreService().getDepth(), labelStyle);
+//        Label.LabelStyle labelStyle = new Label.LabelStyle();
+//        labelStyle.font = new BitmapFont();
+        depthlabel = new Label("Depth: " +game.getScoreService().getDepth(), skin, "title");
 
         hpBar = new HpBar(0.0f, 100.0f, 1.0f, false);
         hpBar.setAnimateDuration(0.25f);
 
-        hpLabel = new AttributeLabel();
-        levelLabel = new AttributeLabel();
-        experienceLabel = new AttributeLabel();
-        attributeLabel = new AttributeLabel();
-        rewardLabel = new AttributeLabel();
+        hpLabel = new AttributeLabel(skin, "subtitle");
+        levelLabel = new AttributeLabel(skin, "subtitle");
+        experienceLabel = new AttributeLabel(skin, "subtitle");
+        attributeLabel = new AttributeLabel(skin, "subtitle");
+        rewardLabel = new AttributeLabel(skin, "subtitle");
 
         monsterDamageIndicatorLabel = new DamageIndicatorLabel();
         heroDamageIndicatorLabel = new DamageIndicatorLabel();
@@ -116,11 +122,11 @@ public class BattleScreen extends AbstractScreen {
         playerstats.add(rewardTable);
 
         playerstats.debug();
-        playerstats.setVisible(true);
+        playerstats.setVisible(false);
 
 
-        monsterLevelLabel = new AttributeLabel();
-        monsterHpLabel = new AttributeLabel();
+        monsterLevelLabel = new AttributeLabel(skin, "subtitle");
+        monsterHpLabel = new AttributeLabel(skin, "subtitle");
         monsterHpBar = new HpBar(0.0f, 100.0f, 1.0f, false);
         monsterHpBar.setAnimateDuration(0.25f);
 
@@ -160,7 +166,7 @@ public class BattleScreen extends AbstractScreen {
 //    Depth Button init
 
     private DepthButton initDepthButton() {
-        depthButton = new DepthButton(new IClickCallback() {
+        depthButton = new DepthButton(skin, "default", new IClickCallback() {
             @Override
             public void onClick() {
                 Gdx.app.log("DepthBtn", "DepthButton clicked");
@@ -171,7 +177,7 @@ public class BattleScreen extends AbstractScreen {
     }
 
     private BattleButton initBattleButton() {
-        battleButton = new BattleButton(new IClickCallback() {
+        battleButton = new BattleButton(skin, "default", new IClickCallback() {
             @Override
             public void onClick() {
                 Gdx.app.log("BattleButton", "Clicked");
@@ -287,7 +293,7 @@ public class BattleScreen extends AbstractScreen {
 
 
     private void initGameplayScreenButton() {
-        gameplayScreenButton = new GameplayScreenButton(new IClickCallback() {
+        gameplayScreenButton = new GameplayScreenButton(skin, "round", new IClickCallback() {
             @Override
             public void onClick() {
                 if (loopbattle){

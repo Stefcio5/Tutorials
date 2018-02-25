@@ -2,6 +2,7 @@ package ui;
 
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
@@ -9,8 +10,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
  * Created by Stefcio on 17.09.2017.
  */
 public class BattleScreenButton extends TextButton{
-    public BattleScreenButton(final IClickCallback callback) {
-        super("BattleScreen", prepareTextButtonStyle());
+    public BattleScreenButton(String text, Skin skin, String styleName, final IClickCallback callback) {
+        super("Battle",skin, styleName);
         init(callback);
     }
     private void init(final IClickCallback callback){

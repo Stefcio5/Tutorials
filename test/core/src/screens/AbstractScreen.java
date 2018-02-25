@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.myGdxGame.game.MyGdxGame;
+import ui.Assets;
 
 
 /**
@@ -22,12 +23,14 @@ public abstract class AbstractScreen implements Screen {
 
     protected SpriteBatch spriteBatch;
 
+
     public AbstractScreen(MyGdxGame game) {
         this.game = game;
         createCamera();
         stage = new Stage(new StretchViewport(MyGdxGame.WIDTH, MyGdxGame.HEIGHT, camera));
         spriteBatch = new SpriteBatch();
         Gdx.input.setInputProcessor(stage);
+
     }
 
     private void createCamera() {
@@ -76,6 +79,7 @@ public abstract class AbstractScreen implements Screen {
     @Override
     public void dispose() {
         game.dispose();
+
     }
 
     @Override
