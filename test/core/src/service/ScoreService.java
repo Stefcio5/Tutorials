@@ -299,7 +299,7 @@ public class ScoreService {
 
     public void resetGamePoints() {
         points = 0;
-        //strength = 1;
+        strength = 1;
         attributes = 0;
         killedMonsters = 0;
         depth = 0;

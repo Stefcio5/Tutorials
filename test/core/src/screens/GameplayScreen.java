@@ -36,6 +36,7 @@ public class GameplayScreen extends AbstractScreen {
     private Label levelLabel;
     private Label pointsLabel;
     private Label strengthLabel;
+    private Label dexterityLabel;
     private Label attributeLabel;
     private FlyingObjectController flyingObjectController;
     private PointsProgressBar pointsProgressBar;
@@ -59,6 +60,7 @@ public class GameplayScreen extends AbstractScreen {
         initAttributeButton();
         initLevelLabel();
         initPointsLabel();
+        initDexterityLabel();
         initStrengthLabel();
         initAttributeLabel();
         initPointProgressBar();
@@ -67,6 +69,7 @@ public class GameplayScreen extends AbstractScreen {
 
 
     }
+
 
     private void initSkins() {
        skin = game.assets.manager.get(game.assets.uiSkin);
@@ -172,6 +175,26 @@ public class GameplayScreen extends AbstractScreen {
 
     }
 
+    private void initLevelLabel() {
+        levelLabel = new Label("Level", skin, "subtitle");
+        levelLabel.setX(20);
+        levelLabel.setY(670);
+        levelLabel.setWidth(100);
+        stage.addActor(levelLabel);
+    }
+    private void initStrengthLabel() {
+        strengthLabel = new Label("Strength", skin, "subtitle");
+        strengthLabel.setX(20);
+        strengthLabel.setY(650);
+        strengthLabel.setWidth(100);
+        stage.addActor(strengthLabel);
+    }
+    private void initDexterityLabel() {
+        dexterityLabel = new Label("Dexterity", skin, "subtitle");
+        dexterityLabel.setPosition(20, 630);
+        dexterityLabel.setWidth(100);
+        stage.addActor(dexterityLabel);
+    }
     private void initAttributeLabel() {
         attributeLabel = new Label("Attribute", skin, "subtitle");
         attributeLabel.setX(20);
@@ -180,12 +203,17 @@ public class GameplayScreen extends AbstractScreen {
         stage.addActor(attributeLabel);
     }
 
-    private void initLevelLabel() {
-        levelLabel = new Label("Level", skin, "subtitle");
-        levelLabel.setX(20);
-        levelLabel.setY(670);
-        levelLabel.setWidth(100);
-        stage.addActor(levelLabel);
+    private void initPointProgressBar() {
+        pointsProgressBar = new PointsProgressBar(0, 100, 1, false);
+        pointsProgressBar.setAnimateDuration(0.25f);
+        stage.addActor(pointsProgressBar);
+    }
+    private void initPointsLabel() {
+        pointsLabel = new Label("Points", skin, "subtitle");
+        pointsLabel.setX(160);
+        pointsLabel.setY(650);
+        pointsLabel.setWidth(100);
+        stage.addActor(pointsLabel);
     }
 
     private void initGameplayScreenButton() {
@@ -201,11 +229,6 @@ public class GameplayScreen extends AbstractScreen {
 
     }
 
-    private void initPointProgressBar() {
-        pointsProgressBar = new PointsProgressBar(0, 100, 1, false);
-        pointsProgressBar.setAnimateDuration(0.25f);
-        stage.addActor(pointsProgressBar);
-    }
 
 
     private void initFlyingObjectController() {
@@ -231,22 +254,6 @@ public class GameplayScreen extends AbstractScreen {
 
     }
 
-
-    private void initPointsLabel() {
-        pointsLabel = new Label("Points", skin, "subtitle");
-        pointsLabel.setX(20);
-        pointsLabel.setY(630);
-        pointsLabel.setWidth(100);
-        stage.addActor(pointsLabel);
-    }
-    private void initStrengthLabel() {
-        strengthLabel = new Label("Strength", skin, "subtitle");
-        strengthLabel.setX(20);
-        strengthLabel.setY(650);
-        strengthLabel.setWidth(100);
-
-        stage.addActor(strengthLabel);
-    }
 
     private void initPlayerButton() {
         playerButton = new PlayerButton(new IClickCallback() {
@@ -283,6 +290,7 @@ public class GameplayScreen extends AbstractScreen {
         levelLabel.setText("Level: " + game.getScoreService().getLevel());
         pointsLabel.setText("Points: " + game.getScoreService().getPoints());
         strengthLabel.setText("Strength: " +game.getScoreService().getStrength());
+        dexterityLabel.setText("Dexterity: " +game.getScoreService().getDexterity());
         attributeLabel.setText("Attribute points: " + game.getScoreService().getAttributes());
         pointsProgressBar.setValue(game.getScoreService().getPoints());
 

@@ -16,7 +16,7 @@ public class PointsProgressBar extends ProgressBar {
         super(min, max, stepSize, vertical, PointsProgressBarStyle());
 
         this.setX(140);
-        this.setY(640);
+        this.setY(670);
     }
 
 
