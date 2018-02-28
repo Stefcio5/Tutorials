@@ -1,14 +1,9 @@
 package screens;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.myGdxGame.game.MyGdxGame;
 import controller.FlyingObjectController;
 import entities.Player;
@@ -27,8 +22,16 @@ public class GameplayScreen extends AbstractScreen {
     private PlayerButton playerButton;
     private ResetScoreButton resetScoreButton;
     private BattleScreenButton battleScreenButton;
-    private StrengthButton strengthButton;
+    private StrengthButton attributeButton;
     private StatsWindow statsWindow;
+    private ButtonGroup buttonGroup;
+    private StrengthButton one;
+    private StrengthButton ten;
+    private StrengthButton hundred;
+    private StrengthButton strengthButton;
+    private StrengthButton dexterityButton;
+    private StrengthButton staminaButton;
+
 
     private Label levelLabel;
     private Label pointsLabel;
@@ -53,7 +56,7 @@ public class GameplayScreen extends AbstractScreen {
         initPlayerButton();
         initResetScoreButton();
         initGameplayScreenButton();
-        initStrengthButton();
+        initAttributeButton();
         initLevelLabel();
         initPointsLabel();
         initStrengthLabel();
@@ -71,16 +74,102 @@ public class GameplayScreen extends AbstractScreen {
     }
 
 
-    private void initStrengthButton() {
-        strengthButton = new StrengthButton(skin, "default", new IClickCallback() {
+    private void initAttributeButton() {
+        one = new StrengthButton(skin, "radio", new IClickCallback() {
+            @Override
+            public void onClick() {
+                game.getScoreService().setAttributesToAdd(1);
+
+            }
+        });
+
+        ten = new StrengthButton(skin, "radio", new IClickCallback() {
+            @Override
+            public void onClick() {
+                game.getScoreService().setAttributesToAdd(10);
+
+            }
+        });
+        hundred = new StrengthButton(skin, "radio", new IClickCallback() {
+            @Override
+            public void onClick() {
+                game.getScoreService().setAttributesToAdd(100);
+
+            }
+        });
+
+
+          strengthButton = new StrengthButton(skin, "default", new IClickCallback() {
+            @Override
+            public void onClick() {
+                game.getScoreService().addStrength(game.getScoreService().getAttributesToAdd());
+
+            }
+        });
+            dexterityButton = new StrengthButton(skin, "default", new IClickCallback() {
+                @Override
+                public void onClick() {
+                    game.getScoreService().addDexterity(game.getScoreService().getAttributesToAdd());
+                }
+            });
+              staminaButton = new StrengthButton(skin, "default", new IClickCallback() {
+                @Override
+                public void onClick() {
+
+                }
+            });
+
+        attributeButton = new StrengthButton(skin, "default", new IClickCallback() {
             @Override
             public void onClick() {
                 statsWindow = new StatsWindow(skin);
+                Table table1 = new Table();
+                ScrollPane scrollPane = new ScrollPane(table1);
+
+                buttonGroup = new ButtonGroup<StrengthButton>(one, hundred, ten);
+                buttonGroup.setChecked("Checked");
+                buttonGroup.setMaxCheckCount(1);
+                buttonGroup.setMinCheckCount(1);
+                buttonGroup.setUncheckLast(true);
+
+                one.setText("x1");
+                one.setChecked(true);
+                ten.setText("x10");
+                hundred.setText("x100");
+                table1.defaults().pad(5);
+                table1.add(one);
+                table1.add(ten);
+                table1.add(hundred);
+
+
+
+
+                Table table = new Table();
+
+                table.defaults().pad(5);
+                table.debug();
+                table.add(strengthButton).expandX().fillX().top().padTop(10);
+                table.row();
+                table.add(dexterityButton).expandX().fillX();
+                table.row();
+                table.add(staminaButton).expandX().fillX();
+                table.row();
+                table.add(scrollPane).expandX().fillX();
+
+
+
+                statsWindow.add(table).expand().fillX().top();
                 stage.addActor(statsWindow);
+
             }
         });
-        strengthButton.setText("Add strength");
-        stage.addActor(strengthButton);
+        attributeButton.setWidth(120);
+        attributeButton.setHeight(50);
+        attributeButton.setX(20);
+        attributeButton.setY(540);
+        attributeButton.setText("Attributes");
+        stage.addActor(attributeButton);
+
     }
 
     private void initAttributeLabel() {
@@ -196,6 +285,12 @@ public class GameplayScreen extends AbstractScreen {
         strengthLabel.setText("Strength: " +game.getScoreService().getStrength());
         attributeLabel.setText("Attribute points: " + game.getScoreService().getAttributes());
         pointsProgressBar.setValue(game.getScoreService().getPoints());
+
+
+        //Attribute window settings
+        strengthButton.setText("Strength: " +game.getScoreService().getStrength());
+        dexterityButton.setText("Dexterity: " + game.getScoreService().getDexterity());
+        staminaButton.setText("Stamina: ");
 
         stage.act();
     }

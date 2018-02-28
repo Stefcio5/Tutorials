@@ -19,8 +19,8 @@ public class StrengthButton extends TextButton {
     private void init(final IClickCallback callback) {
         this.setWidth(120);
         this.setHeight(50);
-        this.setX(20);
-        this.setY(540);
+//        this.setX(20);
+//        this.setY(540);
         this.setDebug(true);
 
         this.addListener(new ClickListener(){

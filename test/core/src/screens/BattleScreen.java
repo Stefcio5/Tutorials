@@ -322,7 +322,7 @@ public class BattleScreen extends AbstractScreen {
     }
     private void update(){
 
-        setDepthLevel();
+
 
 
 // Depth label and depth button settings
@@ -336,11 +336,5 @@ public class BattleScreen extends AbstractScreen {
         }
 
         stage.act();
-    }
-
-    private void setDepthLevel() {
-        if (game.getScoreService().getDepth() < 1){
-            game.getScoreService().setDepth(1);
-        }
     }
 }

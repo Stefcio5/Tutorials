@@ -13,11 +13,9 @@ import com.badlogic.gdx.utils.Disposable;
 public class Assets implements Disposable {
 
     public final AssetManager manager = new AssetManager();
-//    public final Assets assets = new Assets();
 
     public final String TEXTURE_ATLAS_PATH = "uiskin.atlas";
     public final String TEXTURE_SKIN_PATH = "uiskin.json";
-    public final String TEXTURE_FILE_PATH = "uiskin.png";
     public final String BUTTON_FONT_PATH = "font-button.fnt";
     public final String LABEL_FONT_PATH = "font-label.fnt";
     public final String TITLE_FONT_PATH = "font-title.fnt";

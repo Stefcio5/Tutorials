@@ -52,12 +52,12 @@ public class Hero extends Character {
 
     public Hero(MyGdxGame game, int level, int currentXp, int requiredXp, int herohealth, int herodamage) {
         super(game);
-        Hero.level = level;
-        Hero.currentXp = currentXp;
-        Hero.requiredXp = requiredXp;
-        health = herohealth;
-        damage = herodamage;
-        Hero.expPercentage = ((currentXp*100.0f)/requiredXp);
+        this.level = level;
+        this.currentXp = currentXp;
+        this.requiredXp = requiredXp;
+        this.health = herohealth;
+        this.damage = herodamage;
+        this.expPercentage = ((currentXp*100.0f)/requiredXp);
 
     }
 

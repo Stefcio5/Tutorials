@@ -13,6 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.myGdxGame.game.MyGdxGame;
+import screens.GameplayScreen;
 
 /**
  * Created by Stefcio on 14.02.2018.
@@ -31,6 +32,7 @@ public class StatsWindow extends Window {
     public StatsWindow(Skin skin) {
         super("Attributes", skin);
 
+
         TextButton.TextButtonStyle closeButtonStyle = new TextButton.TextButtonStyle();
         closeButtonStyle.font = new BitmapFont();
 
@@ -40,15 +42,16 @@ public class StatsWindow extends Window {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 setVisible(false);
+
             }
         });
         getTitleTable().add(closeButton).size(20f, 20f).padRight(0f).padTop(0f);
         getTitleTable().setDebug(true);
         setClip(false);
         setTransform(true);
+        setMovable(false);
 
-        setClip(false);
-        setTransform(true);
+
 
         this.setSize(300,400);
         this.setPosition(Gdx.graphics.getWidth()/2 - this.getWidth()/2, Gdx.graphics.getHeight()/2 - this.getHeight()/2);

@@ -23,6 +23,7 @@ public class ScoreService {
 
 
     private int gainedxp;
+    private int attributesToAdd;
     public int getGainedxp() {
         return gainedxp;
     }
@@ -38,6 +39,19 @@ public class ScoreService {
     private int level;
     private int requiredxp;
     private int dexterity;
+
+    public int getAttributesToAdd() {
+        return attributesToAdd;
+    }
+
+    public void setAttributesToAdd(int attributesToAdd) {
+        this.attributesToAdd = attributesToAdd;
+    }
+
+
+
+
+
 
 
     public ScoreService() {
@@ -98,25 +112,39 @@ public class ScoreService {
 
     public void addPoints(int pointsToAdd) {
         points += pointsToAdd;
-
         updateSavedScoreInPrefs();
     }
-    public void addStrength() {
-        if (attributes >= 1) {
-            strength += 1;
-            attributes -= 1;
+
+    public void addStrength(int attributesToAdd){
+        if (attributes >= attributesToAdd){
+            strength += attributesToAdd;
+            attributes -= attributesToAdd;
             updateAttributesInPrefs();
             updateStrengthInPrefs();
         }
+        else {
+            strength += attributes;
+            attributes = 0;
+            updateAttributesInPrefs();
+            updateStrengthInPrefs();
+        }
+
     }
-    public void addDexterity(){
-        if (attributes>=1){
-            dexterity += 1;
-            attributes-= 1;
+    public void addDexterity(int attributesToAdd){
+        if (attributes >= attributesToAdd){
+            dexterity += attributesToAdd;
+            attributes-= attributesToAdd;
+            updateAttributesInPrefs();
+            updateDexterityInPrefs();
+        }
+        else {
+            dexterity += attributes;
+            attributes = 0;
             updateAttributesInPrefs();
             updateDexterityInPrefs();
         }
     }
+
 
     public void addAttribute(){
             if (points>=100) {
@@ -128,7 +156,7 @@ public class ScoreService {
 
             }
     }
-        public void updateAttributesInPrefs(){
+        private void updateAttributesInPrefs(){
             prefs.putInteger(GAME_ATTRIBUTES, attributes);
             prefs.flush();
         }
@@ -178,7 +206,47 @@ public class ScoreService {
         depth = prefs.getInteger(GAME_DEPTH);
         xp = prefs.getInteger(GAME_XP);
         level = prefs.getInteger(GAME_LEVEL);
+        attributes = prefs.getInteger(GAME_ATTRIBUTES);
+        attributesToAdd = 1;
+        newPlayer();
 
+    }
+
+    private void newPlayer() {
+        if (level > 1) {
+            level = prefs.getInteger(GAME_LEVEL);
+
+        }
+        else {
+            level = 1;
+            updateLevelInPrefs();
+
+        }
+
+        if(strength > 1){
+            strength = prefs.getInteger(GAME_STRENGTH);
+
+        }
+        else {
+            strength = 1;
+            updateStrengthInPrefs();
+        }
+        if(dexterity > 1){
+            dexterity = prefs.getInteger(GAME_DEXTERITY);
+
+        }
+        else {
+            dexterity = 1;
+            updateDexterityInPrefs();
+        }
+        if(depth > 1){
+            depth = prefs.getInteger(GAME_DEPTH);
+
+        }
+        else {
+            depth = 1;
+            updateDepthInPrefs();
+        }
     }
 
 
