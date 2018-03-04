@@ -2,7 +2,6 @@ package screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.myGdxGame.game.MyGdxGame;
 import controller.FlyingObjectController;
@@ -15,7 +14,9 @@ import ui.*;
  */
 public class GameplayScreen extends AbstractScreen {
 
+
     private Skin skin;
+
 
     private Image backgroundImage;
     private Player player;
@@ -37,6 +38,7 @@ public class GameplayScreen extends AbstractScreen {
     private Label pointsLabel;
     private Label strengthLabel;
     private Label dexterityLabel;
+    private Label staminaLabel;
     private Label attributeLabel;
     private FlyingObjectController flyingObjectController;
     private PointsProgressBar pointsProgressBar;
@@ -62,6 +64,7 @@ public class GameplayScreen extends AbstractScreen {
         initPointsLabel();
         initDexterityLabel();
         initStrengthLabel();
+        initStaminaLabel();
         initAttributeLabel();
         initPointProgressBar();
         initFlyingObjectController();
@@ -118,6 +121,7 @@ public class GameplayScreen extends AbstractScreen {
               staminaButton = new StrengthButton(skin, "default", new IClickCallback() {
                 @Override
                 public void onClick() {
+                    game.getScoreService().addStamina(game.getScoreService().getAttributesToAdd());
 
                 }
             });
@@ -126,6 +130,7 @@ public class GameplayScreen extends AbstractScreen {
             @Override
             public void onClick() {
                 statsWindow = new StatsWindow(skin);
+                statsWindow.setPosition(camera.viewportWidth/2 - statsWindow.getWidth()/2, camera.viewportHeight/2 - statsWindow.getHeight()/2);
                 Table table1 = new Table();
                 ScrollPane scrollPane = new ScrollPane(table1);
 
@@ -137,18 +142,17 @@ public class GameplayScreen extends AbstractScreen {
 
                 one.setText("x1");
                 one.setChecked(true);
+                game.getScoreService().setAttributesToAdd(1);
                 ten.setText("x10");
+                ten.setSize(25,25);
                 hundred.setText("x100");
-                table1.defaults().pad(5);
+                hundred.setSize(20,20);
+                table1.defaults().pad(5).width(50).height(20);
                 table1.add(one);
                 table1.add(ten);
                 table1.add(hundred);
 
-
-
-
                 Table table = new Table();
-
                 table.defaults().pad(5);
                 table.debug();
                 table.add(strengthButton).expandX().fillX().top().padTop(10);
@@ -158,7 +162,6 @@ public class GameplayScreen extends AbstractScreen {
                 table.add(staminaButton).expandX().fillX();
                 table.row();
                 table.add(scrollPane).expandX().fillX();
-
 
 
                 statsWindow.add(table).expand().fillX().top();
@@ -171,35 +174,40 @@ public class GameplayScreen extends AbstractScreen {
         attributeButton.setX(20);
         attributeButton.setY(540);
         attributeButton.setText("Attributes");
+
         stage.addActor(attributeButton);
+
 
     }
 
     private void initLevelLabel() {
-        levelLabel = new Label("Level", skin, "subtitle");
-        levelLabel.setX(20);
-        levelLabel.setY(670);
-        levelLabel.setWidth(100);
+        levelLabel = new Label("Level",skin, "subtitle");
+        levelLabel.setPosition(20, 670);
+        levelLabel.setSize(100, 20);
         stage.addActor(levelLabel);
     }
     private void initStrengthLabel() {
-        strengthLabel = new Label("Strength", skin, "subtitle");
-        strengthLabel.setX(20);
-        strengthLabel.setY(650);
-        strengthLabel.setWidth(100);
+        strengthLabel = new Label("Strength",skin, "subtitle");
+        strengthLabel.setPosition(20, 650);
+        strengthLabel.setSize(100, 20);
         stage.addActor(strengthLabel);
     }
     private void initDexterityLabel() {
-        dexterityLabel = new Label("Dexterity", skin, "subtitle");
+        dexterityLabel = new Label("Dexterity",skin, "subtitle");
         dexterityLabel.setPosition(20, 630);
-        dexterityLabel.setWidth(100);
+        dexterityLabel.setSize(100, 20);
         stage.addActor(dexterityLabel);
+    }
+    private void initStaminaLabel(){
+        staminaLabel = new Label("Stamina",skin, "subtitle");
+        staminaLabel.setPosition(20, 610);
+        staminaLabel.setSize(100, 20);
+        stage.addActor(staminaLabel);
     }
     private void initAttributeLabel() {
         attributeLabel = new Label("Attribute", skin, "subtitle");
-        attributeLabel.setX(20);
-        attributeLabel.setY(610);
-        attributeLabel.setWidth(150);
+        attributeLabel.setPosition(20, 590);
+        attributeLabel.setSize(150, 20);
         stage.addActor(attributeLabel);
     }
 
@@ -210,9 +218,8 @@ public class GameplayScreen extends AbstractScreen {
     }
     private void initPointsLabel() {
         pointsLabel = new Label("Points", skin, "subtitle");
-        pointsLabel.setX(160);
-        pointsLabel.setY(650);
-        pointsLabel.setWidth(100);
+        pointsLabel.setPosition(165, 650);
+        pointsLabel.setSize(100, 20);
         stage.addActor(pointsLabel);
     }
 
@@ -221,8 +228,8 @@ public class GameplayScreen extends AbstractScreen {
             @Override
             public void onClick() {
                 Gdx.app.log("My tag", "BattleScreenButton clicked");
-                game.setScreen(new BattleScreen(game));
                 dispose();
+                game.setScreen(new BattleScreen(game));
             }
         });
         stage.addActor(battleScreenButton);
@@ -240,6 +247,7 @@ public class GameplayScreen extends AbstractScreen {
 
     private void initBackground() {
         backgroundImage = new Image(new Texture("background.png"));
+        backgroundImage.setSize(game.WIDTH, game.HEIGHT);
         stage.addActor(backgroundImage);
     }
 
@@ -286,11 +294,17 @@ public class GameplayScreen extends AbstractScreen {
         spriteBatch.end();
     }
 
+    @Override
+    public void resize(int width, int height) {
+        super.resize(width, height);
+    }
+
     private void update() {
         levelLabel.setText("Level: " + game.getScoreService().getLevel());
         pointsLabel.setText("Points: " + game.getScoreService().getPoints());
         strengthLabel.setText("Strength: " +game.getScoreService().getStrength());
         dexterityLabel.setText("Dexterity: " +game.getScoreService().getDexterity());
+        staminaLabel.setText("Stamina: " +game.getScoreService().getStamina());
         attributeLabel.setText("Attribute points: " + game.getScoreService().getAttributes());
         pointsProgressBar.setValue(game.getScoreService().getPoints());
 
@@ -298,8 +312,14 @@ public class GameplayScreen extends AbstractScreen {
         //Attribute window settings
         strengthButton.setText("Strength: " +game.getScoreService().getStrength());
         dexterityButton.setText("Dexterity: " + game.getScoreService().getDexterity());
-        staminaButton.setText("Stamina: ");
+        staminaButton.setText("Stamina: " + game.getScoreService().getStamina());
+
 
         stage.act();
+    }
+
+    @Override
+    public void dispose() {
+        super.dispose();
     }
 }

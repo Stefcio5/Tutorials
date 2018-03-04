@@ -12,7 +12,7 @@ import com.badlogic.gdx.utils.Disposable;
  */
 public class Assets implements Disposable {
 
-    public final AssetManager manager = new AssetManager();
+    public AssetManager manager = new AssetManager();
 
     public final String TEXTURE_ATLAS_PATH = "uiskin.atlas";
     public final String TEXTURE_SKIN_PATH = "uiskin.json";

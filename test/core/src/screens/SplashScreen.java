@@ -2,12 +2,7 @@ package screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.utils.TimeUtils;
 import com.myGdxGame.game.MyGdxGame;
-import ui.Assets;
-
-import java.util.Timer;
-import java.util.TimerTask;
 
 /**
  * Created by Stefcio on 2017-08-15.
@@ -59,7 +54,12 @@ public class SplashScreen extends AbstractScreen {
     }
 
     @Override
-    public void render(float delta) {
+    public void resize(int width, int height) {
+        super.resize(width, height);
+    }
+
+    @Override
+    public void render(final float delta) {
         super.render(delta);
 
         spriteBatch.begin();
@@ -71,16 +71,19 @@ public class SplashScreen extends AbstractScreen {
         }
 
         if (game.assets.manager.update()) {
+            dispose();
+            game.setScreen(new GameplayScreen(game));
 
 
-            com.badlogic.gdx.utils.Timer.schedule(new com.badlogic.gdx.utils.Timer.Task() {
-                @Override
-                public void run() {
-                    game.setScreen(new GameplayScreen(game));
-                    dispose();
-
-                }
-            }, 2);
+//            com.badlogic.gdx.utils.Timer.schedule(new com.badlogic.gdx.utils.Timer.Task() {
+//                @Override
+//                public void run() {
+//                    dispose();
+//                    game.setScreen(new GameplayScreen(game));
+//
+//
+//                }
+//            }, 2);
 
         }
 
@@ -88,5 +91,9 @@ public class SplashScreen extends AbstractScreen {
 
     }
 
+    @Override
+    public void dispose() {
+        super.dispose();
+    }
 }
 

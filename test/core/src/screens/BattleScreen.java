@@ -2,7 +2,6 @@ package screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
@@ -20,41 +19,33 @@ import ui.*;
  * Created by Stefcio on 17.09.2017.
  */
 public class BattleScreen extends AbstractScreen {
+
     private Skin skin;
     private GameplayScreenButton gameplayScreenButton;
     private BattleButton battleButton;
     private DepthButton depthButton;
-    private Table roottable;
     private Table playerstats;
     private Table monsterstats;
-    private Table rewardTable;
     private Label depthlabel;
     private AttributeLabel levelLabel;
     private AttributeLabel experienceLabel;
-    private AttributeLabel attributeLabel;
+    private AttributeLabel strenghtLabel;
     private AttributeLabel hpLabel;
+    private AttributeLabel dexterityLabel;
+    private AttributeLabel staminaLabel;
     private HpBar hpBar;
     private AttributeLabel monsterLevelLabel;
     private HpBar monsterHpBar;
     private AttributeLabel monsterHpLabel;
+    private AttributeLabel monsterStrengthLabel;
+    private AttributeLabel monsterDexterityLabel;
+    private AttributeLabel monsterStaminaLabel;
     private Hero hero;
     private Monster monster;
-    private Texture roottabletexture;
-    private Drawable roottabledrawable;
     private boolean loopbattle = false;
     private DamageIndicatorLabel monsterDamageIndicatorLabel;
     private DamageIndicatorLabel heroDamageIndicatorLabel;
     private AttributeLabel rewardLabel;
-
-//    private int herolevel;
-//    private int currentXp;
-//    private int requiredXp;
-//    private int herodamage;
-//    private int herohealth5;
-//
-//    private int monsterlevel;
-//    private int monsterdamage;
-//    private int monsterhealth;
 
 
     public BattleScreen(MyGdxGame game) {
@@ -76,14 +67,14 @@ public class BattleScreen extends AbstractScreen {
 
 
     private void initTable() {
-        roottabletexture = new Texture(Gdx.files.internal("roottable.png"));
-        roottabledrawable = new TextureRegionDrawable(new TextureRegion(roottabletexture));
-        roottable = new Table();
+        Texture roottabletexture = new Texture(Gdx.files.internal("roottable.png"));
+        Drawable roottabledrawable = new TextureRegionDrawable(new TextureRegion(roottabletexture));
+        Table roottable = new Table();
         roottable.setBackground(roottabledrawable);
         roottable.defaults().pad(10).top().left();
         roottable.setFillParent(true);
         roottable.debug();
-        roottable.setBounds(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        roottable.setSize(MyGdxGame.WIDTH, MyGdxGame.HEIGHT);
 
 //        Label.LabelStyle labelStyle = new Label.LabelStyle();
 //        labelStyle.font = new BitmapFont();
@@ -95,18 +86,21 @@ public class BattleScreen extends AbstractScreen {
         hpLabel = new AttributeLabel(skin, "subtitle");
         levelLabel = new AttributeLabel(skin, "subtitle");
         experienceLabel = new AttributeLabel(skin, "subtitle");
-        attributeLabel = new AttributeLabel(skin, "subtitle");
+        strenghtLabel = new AttributeLabel(skin, "subtitle");
+        dexterityLabel = new AttributeLabel(skin, "subtitle");
+        staminaLabel = new AttributeLabel(skin, "subtitle");
+
         rewardLabel = new AttributeLabel(skin, "subtitle");
 
         monsterDamageIndicatorLabel = new DamageIndicatorLabel();
         heroDamageIndicatorLabel = new DamageIndicatorLabel();
 
-        rewardTable = new Table();
+        Table rewardTable = new Table();
 
 
 
         playerstats = new Table();
-        playerstats.defaults().pad(5).left();
+        playerstats.defaults().pad(5).left().height(20);
         playerstats.add(levelLabel);
         playerstats.row();
         playerstats.add(experienceLabel);
@@ -116,7 +110,11 @@ public class BattleScreen extends AbstractScreen {
         playerstats.row();
         playerstats.add(hpLabel);
         playerstats.row();
-        playerstats.add(attributeLabel);
+        playerstats.add(strenghtLabel);
+        playerstats.row();
+        playerstats.add(dexterityLabel);
+        playerstats.row();
+        playerstats.add(staminaLabel);
         playerstats.row();
         playerstats.add(rewardLabel);
         playerstats.add(rewardTable);
@@ -129,15 +127,24 @@ public class BattleScreen extends AbstractScreen {
         monsterHpLabel = new AttributeLabel(skin, "subtitle");
         monsterHpBar = new HpBar(0.0f, 100.0f, 1.0f, false);
         monsterHpBar.setAnimateDuration(0.25f);
+        monsterStrengthLabel = new AttributeLabel(skin, "subtitle");
+        monsterDexterityLabel = new AttributeLabel(skin, "subtitle");
+        monsterStaminaLabel = new AttributeLabel(skin, "subtitle");
 
         monsterstats = new Table();
-        monsterstats.defaults().pad(5).left();
+        monsterstats.defaults().pad(5).left().height(20);
         monsterstats.add(monsterLevelLabel);
         monsterstats.row();
         monsterstats.add(monsterHpBar);
         monsterstats.add(heroDamageIndicatorLabel);
         monsterstats.row();
         monsterstats.add(monsterHpLabel);
+        monsterstats.row();
+        monsterstats.add(monsterStrengthLabel);
+        monsterstats.row();
+        monsterstats.add(monsterStaminaLabel);
+        monsterstats.row();
+        monsterstats.add(monsterDexterityLabel);
         monsterstats.row();
         monsterstats.add(initDepthButton()).fillX().height(50);
         monsterstats.debug();
@@ -148,7 +155,7 @@ public class BattleScreen extends AbstractScreen {
 
 
         roottable.add(depthlabel).fill();
-        roottable.add(initBattleButton()).fill().height(40);
+        roottable.add(initBattleButton()).fill();
         roottable.row();
         roottable.add(playerstats).expand().uniform();
         roottable.add(monsterstats).expand().uniform();
@@ -209,14 +216,14 @@ public class BattleScreen extends AbstractScreen {
 
                     initBattle();
                     while (hero.getHealth() > 0 && monster.getHealth() > 0) {
-                        hero.HeroAttack();
+                        hero.HeroHitChance();
                         UpdateStats();
                         try {
                             Thread.sleep(500);
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
-                        monster.MonsterAttack();
+                        monster.MonsterHitChance();
                         UpdateStats();
                         try {
                             Thread.sleep(500);
@@ -256,21 +263,26 @@ public class BattleScreen extends AbstractScreen {
         int herolevel = game.getScoreService().getLevel();
         int currentXp = game.getScoreService().getXp();
         int requiredXp = game.getScoreService().getRequiredxp();
-        int herodamage = game.getScoreService().getStrength();
-        int herohealth = herodamage*5;
+        int herostrength = game.getScoreService().getStrength();
+        int herodexterity = game.getScoreService().getDexterity();
+        int herostamina = game.getScoreService().getStamina();
+        int herohealth = herostamina*5;
 
         int monsterlevel = game.getScoreService().getDepth();
-        int monsterdamage = MathUtils.random(5, 10)*monsterlevel;
-        int monsterhealth = monsterdamage*monsterlevel;
+        int monsterstrength = MathUtils.random(1,5)*monsterlevel;
+        int monsterdexterity = MathUtils.random(1,5)*monsterlevel;
+        int monsterstamina = MathUtils.random(1,5)*monsterlevel;
+        int monsterhealth = monsterstamina*5;
 
 
-        monster = new Monster(game, monsterlevel, monsterhealth, monsterhealth);
+
+        monster = new Monster(game, monsterlevel, monsterstrength, monsterdexterity, monsterstamina, monsterhealth, monsterhealth);
 
         System.out.println("    Monster health: " + monster.getHealth());
 
 
-        hero = new Hero(game, herolevel, currentXp, requiredXp, herohealth, herodamage);
-        System.out.println("    Hero health: " +hero.getHealth() + " Hero damage: " + herodamage);
+        hero = new Hero(game, herolevel, currentXp, requiredXp, herohealth, herostrength, herodexterity, herostamina);
+        System.out.println("    Hero health: " +hero.getHealth() + " Hero damage: " + herostrength);
 
         UpdateStats();
     }
@@ -279,13 +291,18 @@ public class BattleScreen extends AbstractScreen {
         levelLabel.setText("Level: " +game.getScoreService().getLevel());
         experienceLabel.setText("Exp: " +Hero.getCurrentXp() + "/" + Hero.getRequiredXp() + " (" + Hero.getExpPercentage() + "%)");
         hpLabel.setText("Hp: " +hero.getHealth());
-        hpBar.setValue((hero.getHealth()*100)/(hero.getDamage()*5));
-        attributeLabel.setText("Strength: "+game.getScoreService().getStrength());
+        hpBar.setValue((hero.getHealth()*100)/(hero.getHerostamina()*5));
+        strenghtLabel.setText("Strength: "+game.getScoreService().getStrength());
+        dexterityLabel.setText("Dexterity: " + game.getScoreService().getDexterity());
+        staminaLabel.setText("Stamina: " + game.getScoreService().getStamina());
         rewardLabel.setText("Reward: " +game.getScoreService().getGainedxp() + " xp");
 
         monsterLevelLabel.setText("Level: " +game.getScoreService().getDepth());
         monsterHpBar.setValue((monster.getHealth()*100) / monster.getMaxHp());
         monsterHpLabel.setText("Hp: "+monster.getHealth());
+        monsterStrengthLabel.setText("Strength: " + monster.getMonsterstrength());
+        monsterDexterityLabel.setText("Dexterity: " +monster.getMonsterdexterity());
+        monsterStaminaLabel.setText("Stamina: " + monster.getMonsterstamina());
         monsterDamageIndicatorLabel.setText(" -" + monster.getDamage());
         heroDamageIndicatorLabel.setText(" -" +hero.getDamage());
 
@@ -302,8 +319,8 @@ public class BattleScreen extends AbstractScreen {
                 else {
                     loopbattle = true;
                 }
-                game.setScreen(new GameplayScreen(game));
                 dispose();
+                game.setScreen(new GameplayScreen(game));
             }
         });
         stage.addActor(gameplayScreenButton);
@@ -336,5 +353,10 @@ public class BattleScreen extends AbstractScreen {
         }
 
         stage.act();
+    }
+
+    @Override
+    public void dispose() {
+        super.dispose();
     }
 }

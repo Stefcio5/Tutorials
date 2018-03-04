@@ -1,9 +1,6 @@
 package combat;
 
-import com.badlogic.gdx.utils.Timer;
 import com.myGdxGame.game.MyGdxGame;
-import screens.BattleScreen;
-import service.ScoreService;
 
 /**
  * Created by Stefcio on 20.09.2017.

@@ -51,11 +51,10 @@ public class StatsWindow extends Window {
         setTransform(true);
         setMovable(false);
 
-
-
+//        this.setPosition(480 - this.getWidth()/2, 700 - this.getHeight()/2);
         this.setSize(300,400);
-        this.setPosition(Gdx.graphics.getWidth()/2 - this.getWidth()/2, Gdx.graphics.getHeight()/2 - this.getHeight()/2);
-
+        this.setBounds(0, 0, this.getWidth(), this.getHeight());
+        this.setPosition(0, 0);
 
     }
 

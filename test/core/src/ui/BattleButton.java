@@ -1,12 +1,10 @@
 package ui;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.myGdxGame.game.MyGdxGame;
 
 /**
  * Created by Stefcio on 20.09.2017.
@@ -19,8 +17,6 @@ public class BattleButton extends TextButton{
         }
 
         private void init(final IClickCallback callback){
-            this.setWidth(120);
-            this.setHeight(50);
             //this.setX(MyGdxGame.WIDTH/2-getWidth()/2);
             //this.setY(MyGdxGame.HEIGHT-64f);
             this.setDebug(true);

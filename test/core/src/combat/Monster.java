@@ -1,8 +1,6 @@
 package combat;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.utils.Timer;
 import com.myGdxGame.game.MyGdxGame;
 
 /**
@@ -11,12 +9,12 @@ import com.myGdxGame.game.MyGdxGame;
 public class Monster extends Character{
 
     static int monsterLevel;
-    static int health;
+    static int monsterhealth;
+    static int monsterstrength;
     static int damage;
-
-
-
-    static int maxHp;
+    static int monsterdexterity;
+    static int monsterstamina;
+    static int monstermaxHp;
 
 
 
@@ -24,38 +22,61 @@ public class Monster extends Character{
         return monsterLevel;
     }
     public int getMaxHp() {
-        return maxHp;
+        return monstermaxHp;
+    }
+    public int getMonsterstrength() {
+        return monsterstrength;
+    }
+    public static int getMonsterdexterity() {
+        return monsterdexterity;
+    }
+    public int getMonsterstamina() {
+        return monsterstamina;
     }
 
 
     public int getHealth() {
-        return health;
+        return monsterhealth;
     }
-
-
-
-    public Monster(MyGdxGame game, int monsterLevel, int maxHp, int health) {
-        super(game);
-      this.monsterLevel = monsterLevel;
-      this.maxHp = maxHp;
-      this.health = health;
-
-    }
-
     public int getDamage() {
         return damage;
     }
 
+
+
+    public Monster(MyGdxGame game, int monsterLevel, int monsterstrength, int monsterdexterity, int monsterstamina, int monstermaxHp, int monsterhealth) {
+        super(game);
+      this.monsterLevel = monsterLevel;
+      this.monsterstrength = monsterstrength;
+      this.monsterdexterity = monsterdexterity;
+      this.monsterstamina = monsterstamina;
+      this.monstermaxHp = monstermaxHp;
+      this.monsterhealth = monsterhealth;
+
+    }
+
+
     public void MonsterAttack() {
-        if (Monster.health > 0) {
-            damage = MathUtils.random(5, 10)*monsterLevel;
-                System.out.println("        Monster attacks you for " + damage + " damage!");
-                Hero.health -= damage;
+        if (Monster.monsterhealth > 0) {
+            Hero.health -= MathUtils.random(1,2)*monsterstrength;
+                System.out.println("        Monster attacks you for " + damage + " strength!");
                 System.out.println("You have " + Hero.health + " health remaining!");
 
             }
 
 
+    }
+    public void MonsterHitChance(){
+        int roll = MathUtils.random(0, 100);
+        int hitChance = 40*(Monster.getMonsterdexterity())/Hero.getHerodexterity();
+        System.out.println("Monster Hit chance: " +hitChance);
+
+        if (roll<hitChance){
+            MonsterAttack();
+        }
+        else {
+            System.out.println("Monster missed!");
+        }
     }
 
 

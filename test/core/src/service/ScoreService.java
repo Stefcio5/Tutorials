@@ -19,6 +19,7 @@ public class ScoreService {
     public final static String GAME_REQUIREDXP = "com.mygdx.game.prefs.requiredxp";
     public final static String GAME_ATTRIBUTES = "com.mygdx.game.prefs.attributes";
     public final static String GAME_DEXTERITY = "com.mygdx.game.prefs.dexterity";
+    public final static String GAME_STAMINA = "com.mygdx.game.prefs.stamina";
 
 
 
@@ -31,6 +32,8 @@ public class ScoreService {
 
     private int points;
     private int strength;
+    private int dexterity;
+    private int stamina;
     private int attributes;
     private Preferences prefs;
     private int killedMonsters;
@@ -38,15 +41,6 @@ public class ScoreService {
     private int xp;
     private int level;
     private int requiredxp;
-    private int dexterity;
-
-    public int getAttributesToAdd() {
-        return attributesToAdd;
-    }
-
-    public void setAttributesToAdd(int attributesToAdd) {
-        this.attributesToAdd = attributesToAdd;
-    }
 
 
 
@@ -144,6 +138,20 @@ public class ScoreService {
             updateDexterityInPrefs();
         }
     }
+    public void addStamina(int attributesToAdd){
+        if (attributes >= attributesToAdd){
+            stamina += attributesToAdd;
+            attributes -= attributesToAdd;
+            updateAttributesInPrefs();
+            updateStaminaInPrefs();
+        }
+        else {
+            stamina += attributes;
+            attributes = 0;
+            updateAttributesInPrefs();
+            updateStaminaInPrefs();
+        }
+    }
 
 
     public void addAttribute(){
@@ -197,11 +205,16 @@ public class ScoreService {
         prefs.putInteger(GAME_DEXTERITY, dexterity);
         prefs.flush();
     }
+    private void updateStaminaInPrefs(){
+        prefs.putInteger(GAME_STAMINA, stamina);
+        prefs.flush();
+    }
 
     private void loadScore() {
         points = prefs.getInteger(GAME_SCORE);
         strength = prefs.getInteger(GAME_STRENGTH);
         dexterity = prefs.getInteger(GAME_DEXTERITY);
+        stamina = prefs.getInteger(GAME_STAMINA);
         killedMonsters = prefs.getInteger(GAME_KILLED_MONSTERS);
         depth = prefs.getInteger(GAME_DEPTH);
         xp = prefs.getInteger(GAME_XP);
@@ -223,21 +236,28 @@ public class ScoreService {
 
         }
 
-        if(strength > 1){
+        if(strength > 5){
             strength = prefs.getInteger(GAME_STRENGTH);
 
         }
         else {
-            strength = 1;
+            strength = 5;
             updateStrengthInPrefs();
         }
-        if(dexterity > 1){
+        if(dexterity > 5){
             dexterity = prefs.getInteger(GAME_DEXTERITY);
 
         }
         else {
-            dexterity = 1;
+            dexterity = 5;
             updateDexterityInPrefs();
+        }
+        if (stamina > 5){
+            stamina = prefs.getInteger(GAME_STAMINA);
+        }
+        else {
+            stamina = 5;
+            updateStaminaInPrefs();
         }
         if(depth > 1){
             depth = prefs.getInteger(GAME_DEPTH);
@@ -262,6 +282,13 @@ public class ScoreService {
     }
     public int getAttributes() {
         return attributes;
+    }
+    public int getStamina() {
+        return stamina;
+    }
+
+    public void setStamina(int stamina) {
+        this.stamina = stamina;
     }
 
     public int getKilledMonsters() {
@@ -295,11 +322,20 @@ public class ScoreService {
     public void setRequiredxp(int requiredxp) {
         this.requiredxp = requiredxp;
     }
+    public int getAttributesToAdd() {
+        return attributesToAdd;
+    }
+
+    public void setAttributesToAdd(int attributesToAdd) {
+        this.attributesToAdd = attributesToAdd;
+    }
 
 
     public void resetGamePoints() {
         points = 0;
-        strength = 1;
+        strength = 5;
+        dexterity = 5;
+        stamina = 5;
         attributes = 0;
         killedMonsters = 0;
         depth = 0;
@@ -308,6 +344,7 @@ public class ScoreService {
         updateSavedScoreInPrefs();
         updateStrengthInPrefs();
         updateDexterityInPrefs();
+        updateStaminaInPrefs();
         updateAttributesInPrefs();
         updateKilledMonstersInPrefs();
         updateDepthInPrefs();
