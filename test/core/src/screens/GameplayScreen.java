@@ -2,6 +2,7 @@ package screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.myGdxGame.game.MyGdxGame;
 import controller.FlyingObjectController;
@@ -129,43 +130,44 @@ public class GameplayScreen extends AbstractScreen {
         attributeButton = new StrengthButton(skin, "default", new IClickCallback() {
             @Override
             public void onClick() {
-                statsWindow = new StatsWindow(skin);
-                statsWindow.setPosition(camera.viewportWidth/2 - statsWindow.getWidth()/2, camera.viewportHeight/2 - statsWindow.getHeight()/2);
-                Table table1 = new Table();
-                ScrollPane scrollPane = new ScrollPane(table1);
+                    statsWindow = new StatsWindow(skin);
+                    statsWindow.setPosition(camera.viewportWidth / 2 - statsWindow.getWidth() / 2, camera.viewportHeight / 2 - statsWindow.getHeight() / 2);
+                    Table table1 = new Table();
+                    ScrollPane scrollPane = new ScrollPane(table1);
 
-                buttonGroup = new ButtonGroup<StrengthButton>(one, hundred, ten);
-                buttonGroup.setChecked("Checked");
-                buttonGroup.setMaxCheckCount(1);
-                buttonGroup.setMinCheckCount(1);
-                buttonGroup.setUncheckLast(true);
+                    buttonGroup = new ButtonGroup<StrengthButton>(one, hundred, ten);
+                    buttonGroup.setChecked("Checked");
+                    buttonGroup.setMaxCheckCount(1);
+                    buttonGroup.setMinCheckCount(1);
+                    buttonGroup.setUncheckLast(true);
 
-                one.setText("x1");
-                one.setChecked(true);
-                game.getScoreService().setAttributesToAdd(1);
-                ten.setText("x10");
-                ten.setSize(25,25);
-                hundred.setText("x100");
-                hundred.setSize(20,20);
-                table1.defaults().pad(5).width(50).height(20);
-                table1.add(one);
-                table1.add(ten);
-                table1.add(hundred);
+                    one.setText("x1");
+                    one.setChecked(true);
+                    game.getScoreService().setAttributesToAdd(1);
+                    ten.setText("x10");
+                    ten.setSize(25, 25);
+                    hundred.setText("x100");
+                    hundred.setSize(20, 20);
+                    table1.defaults().pad(5).width(50).height(20);
+                    table1.add(one);
+                    table1.add(ten);
+                    table1.add(hundred);
 
-                Table table = new Table();
-                table.defaults().pad(5);
-                table.debug();
-                table.add(strengthButton).expandX().fillX().top().padTop(10);
-                table.row();
-                table.add(dexterityButton).expandX().fillX();
-                table.row();
-                table.add(staminaButton).expandX().fillX();
-                table.row();
-                table.add(scrollPane).expandX().fillX();
+                    Table table = new Table();
+                    table.defaults().pad(5);
+                    table.setDebug(true);
+                    table.add(strengthButton).expandX().fillX().top().padTop(10);
+                    table.row();
+                    table.add(dexterityButton).expandX().fillX();
+                    table.row();
+                    table.add(staminaButton).expandX().fillX();
+                    table.row();
+                    table.add(scrollPane).expandX().fillX();
 
 
-                statsWindow.add(table).expand().fillX().top();
-                stage.addActor(statsWindow);
+                    statsWindow.add(table).expand().fillX().top();
+
+                    stage.addActor(statsWindow);
 
             }
         });
@@ -174,8 +176,8 @@ public class GameplayScreen extends AbstractScreen {
         attributeButton.setX(20);
         attributeButton.setY(540);
         attributeButton.setText("Attributes");
-
         stage.addActor(attributeButton);
+
 
 
     }
@@ -322,4 +324,5 @@ public class GameplayScreen extends AbstractScreen {
     public void dispose() {
         super.dispose();
     }
+
 }

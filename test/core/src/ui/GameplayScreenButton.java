@@ -5,11 +5,14 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.myGdxGame.game.MyGdxGame;
 
 /**
  * Created by Stefcio on 17.09.2017.
  */
 public class GameplayScreenButton extends TextButton {
+
+
     public GameplayScreenButton(Skin skin, String styleName, final IClickCallback callback) {
         super("Training", skin, styleName);
         init(callback);

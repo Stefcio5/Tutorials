@@ -35,6 +35,7 @@ public class BattleScreen extends AbstractScreen {
     private AttributeLabel staminaLabel;
     private HpBar hpBar;
     private AttributeLabel monsterLevelLabel;
+    private AttributeLabel monsterNameLabel;
     private HpBar monsterHpBar;
     private AttributeLabel monsterHpLabel;
     private AttributeLabel monsterStrengthLabel;
@@ -73,7 +74,7 @@ public class BattleScreen extends AbstractScreen {
         roottable.setBackground(roottabledrawable);
         roottable.defaults().pad(10).top().left();
         roottable.setFillParent(true);
-        roottable.debug();
+        roottable.setDebug(true);
         roottable.setSize(MyGdxGame.WIDTH, MyGdxGame.HEIGHT);
 
 //        Label.LabelStyle labelStyle = new Label.LabelStyle();
@@ -119,10 +120,10 @@ public class BattleScreen extends AbstractScreen {
         playerstats.add(rewardLabel);
         playerstats.add(rewardTable);
 
-        playerstats.debug();
+        playerstats.setDebug(true);
         playerstats.setVisible(false);
 
-
+        monsterNameLabel = new AttributeLabel(skin, "subtitle");
         monsterLevelLabel = new AttributeLabel(skin, "subtitle");
         monsterHpLabel = new AttributeLabel(skin, "subtitle");
         monsterHpBar = new HpBar(0.0f, 100.0f, 1.0f, false);
@@ -134,6 +135,8 @@ public class BattleScreen extends AbstractScreen {
         monsterstats = new Table();
         monsterstats.defaults().pad(5).left().height(20);
         monsterstats.add(monsterLevelLabel);
+        monsterstats.row();
+        monsterstats.add(monsterNameLabel);
         monsterstats.row();
         monsterstats.add(monsterHpBar);
         monsterstats.add(heroDamageIndicatorLabel);
@@ -147,7 +150,7 @@ public class BattleScreen extends AbstractScreen {
         monsterstats.add(monsterDexterityLabel);
         monsterstats.row();
         monsterstats.add(initDepthButton()).fillX().height(50);
-        monsterstats.debug();
+        monsterstats.setDebug(true);
         monsterstats.setVisible(false);
 
 
@@ -268,17 +271,18 @@ public class BattleScreen extends AbstractScreen {
         int herostamina = game.getScoreService().getStamina();
         int herohealth = herostamina*5;
 
-        int monsterlevel = game.getScoreService().getDepth();
-        int monsterstrength = MathUtils.random(1,5)*monsterlevel;
-        int monsterdexterity = MathUtils.random(1,5)*monsterlevel;
-        int monsterstamina = MathUtils.random(1,5)*monsterlevel;
-        int monsterhealth = monsterstamina*5;
+//        int monsterlevel = game.getScoreService().getDepth();
+//        int monsterstrength = MathUtils.random(1,5)*monsterlevel;
+//        int monsterdexterity = MathUtils.random(1,5)*monsterlevel;
+//        int monsterstamina = MathUtils.random(1,5)*monsterlevel;
+//        int monsterhealth = monsterstamina*5;
 
 
 
-        monster = new Monster(game, monsterlevel, monsterstrength, monsterdexterity, monsterstamina, monsterhealth, monsterhealth);
+        monster = new Monster(game);
 
         System.out.println("    Monster health: " + monster.getHealth());
+        System.out.println("    Monster rarity: " + monster.getMonsterRarity());
 
 
         hero = new Hero(game, herolevel, currentXp, requiredXp, herohealth, herostrength, herodexterity, herostamina);
@@ -297,7 +301,23 @@ public class BattleScreen extends AbstractScreen {
         staminaLabel.setText("Stamina: " + game.getScoreService().getStamina());
         rewardLabel.setText("Reward: " +game.getScoreService().getGainedxp() + " xp");
 
-        monsterLevelLabel.setText("Level: " +game.getScoreService().getDepth());
+        monsterLevelLabel.setText("Level: " +monster.getMonsterLevel());
+
+        // change monster name label color depend of monster rarity
+
+        if (monster.getMonsterRarity().equals(Monster.Rarity.Boss.toString()) ){
+            monsterNameLabel.setColor(skin.getColor("red"));
+        }
+        else if (monster.getMonsterRarity().equals(Monster.Rarity.Legendary.toString())){
+            monsterNameLabel.setColor(skin.getColor("brown"));
+        }
+        else if (monster.getMonsterRarity().equals(Monster.Rarity.Rare.toString())){
+            monsterNameLabel.setColor(skin.getColor("yellow"));
+        }
+        else {
+            monsterNameLabel.setColor(skin.getColor("white"));
+        }
+        monsterNameLabel.setText("Name: " + monster.getMonsterRarity());
         monsterHpBar.setValue((monster.getHealth()*100) / monster.getMaxHp());
         monsterHpLabel.setText("Hp: "+monster.getHealth());
         monsterStrengthLabel.setText("Strength: " + monster.getMonsterstrength());

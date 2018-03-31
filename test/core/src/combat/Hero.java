@@ -84,7 +84,7 @@ public class Hero extends Character {
         int roll = MathUtils.random(0, 100);
         int hitChance = 40*(Hero.getHerodexterity())/Monster.getMonsterdexterity();
         System.out.println("Hero Hit chance: " +hitChance);
-        if (roll<hitChance){
+        if (roll<=hitChance){
             HeroAttack();
 
         }

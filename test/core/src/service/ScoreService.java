@@ -3,6 +3,7 @@ package service;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.math.MathUtils;
+import combat.Monster;
 
 /**
  * Created by Stefcio on 15.09.2017.
@@ -57,7 +58,7 @@ public class ScoreService {
         loadScore();
     }
     public void addXp(){
-        int calcxp = (int) (Math.pow(depth, 1.1))*10;
+        int calcxp = (int) ((int) (Math.pow(depth, 1.1))*10* Monster.getRarityMultiplier());
         int calcmin = (int) (calcxp*(80.0f/100.0f));
         int calcmax = (int) (calcxp*(120.0f/100.0f));
         gainedxp = MathUtils.random(calcmin, calcmax);

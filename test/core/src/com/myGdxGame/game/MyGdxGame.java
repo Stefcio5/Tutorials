@@ -14,6 +14,10 @@ public class MyGdxGame extends Game {
     public final static int HEIGHT = 700;
 
 
+
+    public boolean debug;
+
+
     private ScoreService scoreService;
     public Assets assets;
 
@@ -22,6 +26,10 @@ public class MyGdxGame extends Game {
     * Getters and Setters
 	*
 	* */
+
+    public boolean isDebug() {
+        return debug;
+    }
 
     public boolean isPaused() {
         return paused;
