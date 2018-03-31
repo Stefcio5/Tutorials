@@ -1,13 +1,7 @@
 package combat;
 
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Colors;
 import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.utils.Json;
 import com.myGdxGame.game.MyGdxGame;
-
-import java.util.ArrayList;
 
 /**
  * Created by Stefcio on 20.09.2017.
@@ -21,20 +15,31 @@ public class Monster extends Character{
         }
 
 
-    static int monsterLevel;
+
+    static int monsterlevel;
     static int monsterhealth;
     static int monsterstrength;
     static int damage;
     static int monsterdexterity;
     static int monsterstamina;
     static int monstermaxHp;
-    static double rarityMultiplier;
-    static String monsterRarity;
+    static double raritymultiplier;
+    static String monsterrarity;
+    static String monstername;
+    public  String[] monsternames = {"Skeleton", "Zombie", "Spider"};
 
+
+    public String getMonsternames() {
+        int random = MathUtils.random(monsternames.length - 1);
+        return monsternames[random];
+    }
+    public String getMonstername() {
+        return monstername;
+    }
 
 
     public int getMonsterLevel() {
-        return monsterLevel;
+        return monsterlevel;
     }
     public int getMaxHp() {
         return monstermaxHp;
@@ -49,10 +54,10 @@ public class Monster extends Character{
         return monsterstamina;
     }
     public String getMonsterRarity() {
-        return monsterRarity;
+        return monsterrarity;
     }
-    public static double getRarityMultiplier() {
-        return rarityMultiplier;
+    public static double getRaritymultiplier() {
+        return raritymultiplier;
     }
 
 
@@ -67,24 +72,24 @@ public class Monster extends Character{
 
         int i = MathUtils.random(1,100);
         if (i <= 1) {
-            monsterRarity = Rarity.Boss.toString();
-            rarityMultiplier = 5;
-            return monsterRarity;
+            monsterrarity = Rarity.Boss.toString();
+            raritymultiplier = 5;
+            return monsterrarity;
         }
         else if (i > 1 && i <= 6){
-            monsterRarity = Rarity.Legendary.toString();
-            rarityMultiplier = 3;
-            return monsterRarity;
+            monsterrarity = Rarity.Legendary.toString();
+            raritymultiplier = 3;
+            return monsterrarity;
         }
         else if (i > 6 && i <= 21){
-            monsterRarity = Rarity.Rare.toString();
-            rarityMultiplier = 1.5;
-            return monsterRarity;
+            monsterrarity = Rarity.Rare.toString();
+            raritymultiplier = 1.5;
+            return monsterrarity;
         }
         else {
-            monsterRarity = Rarity.Normal.toString();
-            rarityMultiplier = 1;
-            return monsterRarity;
+            monsterrarity = Rarity.Normal.toString();
+            raritymultiplier = 1;
+            return monsterrarity;
         }
     }
 
@@ -92,11 +97,12 @@ public class Monster extends Character{
 
     public Monster(MyGdxGame game) {
         super(game);
-        this.monsterRarity = setRarity();
-      this.monsterLevel = (int) (game.getScoreService().getDepth()*rarityMultiplier);
-      this.monsterstrength = MathUtils.random(1,5)*monsterLevel;
-      this.monsterdexterity = MathUtils.random(1,5)*monsterLevel;
-      this.monsterstamina = MathUtils.random(1,5)*monsterLevel;
+        this.monstername = getMonsternames();
+        this.monsterrarity = setRarity();
+        this.monsterlevel = (int) (game.getScoreService().getDepth()* raritymultiplier);
+        this.monsterstrength = MathUtils.random(1,5)* monsterlevel;
+        this.monsterdexterity = MathUtils.random(1,5)* monsterlevel;
+        this.monsterstamina = MathUtils.random(1,5)* monsterlevel;
         this.monsterhealth = monsterstamina*5;
         this.monstermaxHp = monsterhealth;
     }

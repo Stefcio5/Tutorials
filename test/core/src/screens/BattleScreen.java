@@ -317,7 +317,7 @@ public class BattleScreen extends AbstractScreen {
         else {
             monsterNameLabel.setColor(skin.getColor("white"));
         }
-        monsterNameLabel.setText("Name: " + monster.getMonsterRarity());
+        monsterNameLabel.setText("" + monster.getMonsterRarity() + " " + monster.getMonstername());
         monsterHpBar.setValue((monster.getHealth()*100) / monster.getMaxHp());
         monsterHpLabel.setText("Hp: "+monster.getHealth());
         monsterStrengthLabel.setText("Strength: " + monster.getMonsterstrength());

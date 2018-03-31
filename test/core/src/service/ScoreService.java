@@ -58,7 +58,7 @@ public class ScoreService {
         loadScore();
     }
     public void addXp(){
-        int calcxp = (int) ((int) (Math.pow(depth, 1.1))*10* Monster.getRarityMultiplier());
+        int calcxp = (int) ((int) (Math.pow(depth, 1.1))*10* Monster.getRaritymultiplier());
         int calcmin = (int) (calcxp*(80.0f/100.0f));
         int calcmax = (int) (calcxp*(120.0f/100.0f));
         gainedxp = MathUtils.random(calcmin, calcmax);
