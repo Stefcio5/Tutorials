@@ -24,11 +24,11 @@ public class FlyingObject extends Image {
     private static int HEIGHT = 150;
 
     private static final int STARTING_X_1 = 0;
-    private static final int STARTING_X_2 = MyGdxGame.WIDTH;
+    private static final float STARTING_X_2 = MyGdxGame.WIDTH;
 
     private static final int STARTING_Y = -100;
 
-    private int startingX;
+    private float startingX;
 
     private MyGdxGame game;
     private FlyingObjectType type;

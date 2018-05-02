@@ -3,11 +3,13 @@ package ui;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.myGdxGame.game.MyGdxGame;
 
 /**
  * Created by Stefcio on 05.09.2017.
  */
 public class PlayerButton extends Button {
+
 
     public PlayerButton(final IClickCallback callback) {
         super(new ButtonStyle());

@@ -6,11 +6,14 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.myGdxGame.game.MyGdxGame;
 
 /**
  * Created by Stefcio on 06.09.2017.
  */
 public class ResetScoreButton extends Button {
+
+
     public ResetScoreButton(final IClickCallback callback) {
         super(prepareResetButtonStyle());
 
